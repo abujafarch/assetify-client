@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LiLinks from './LiLinks';
 import Profile from './Profile';
 import Logo from './Logo';
@@ -7,7 +7,21 @@ const Navbar = () => {
 
     const employee = false
     const hr = true
-    const user = false
+    // const user = false
+
+    const [scrollY, setScrollY] = useState(0)
+
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY
+        setScrollY(scrollY)
+        // console.log(window);
+    })
+
+    // window.addEventListener('scroll', () => {
+    //     const scrollY = window.scrollY
+    //     // console.log(scrollY, e);
+    //     setScrollY(scrollY)
+    // })
 
     const navLinks = <>
 
@@ -41,7 +55,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className='border-b border-[#f0f0f0] w-full py-2'>
+        <div className={` border-[#f0f0f0] w-full py-2 ${scrollY < 20 ? 'bg-transparent border-0' : 'bg-white border-b'}`}>
             <div className='px-2 sm:px-5 flex gap-5 items-center'>
                 <div className="navbar justify-between">
                     <div className="navbar-start ">
