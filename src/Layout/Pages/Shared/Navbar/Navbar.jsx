@@ -55,7 +55,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className={` border-[#f0f0f0] w-full py-2 ${scrollY < 20 ? 'bg-transparent border-0' : 'bg-white border-b'}`}>
+        <div className={`  w-full py-2 ${scrollY < 20 ? 'bg-[#ffffff31] border-0' : 'bg-white border-b border-[#f0f0f0]'} transition-all duration-200 ease-in-out`}>
             <div className='px-2 sm:px-5 flex gap-5 items-center'>
                 <div className="navbar justify-between">
                     <div className="navbar-start ">
