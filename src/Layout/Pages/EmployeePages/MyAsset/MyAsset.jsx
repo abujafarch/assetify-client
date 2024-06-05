@@ -11,9 +11,9 @@ const MyAsset = () => {
                     <Search></Search>
                     <Filter></Filter>
                 </div>
-                <div className="border mt-10 px-5 pt-7 pb-10 border-[#ffffff10] bg-[#ffffff03] rounded-md">
+                <div className="border mt-10 px-3 sm:px-5 py-5 sm:py-7 border-[#ffffff10] bg-[#ffffff03] rounded-md">
                     <div className="space-y-3">
-                        <AssetItem name={"Dell Laptop DS2023"} reqDate={"12-05-24"} category={"laptop"} approvalDate={"13-05-24"} reqStatus={"Approved"} ></AssetItem>
+                        <AssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} reqDate={"12-05-24"} category={"laptop"} approvalDate={"13-05-24"} reqStatus={"Approved"} ></AssetItem>
                         <AssetItem name={"Dell Laptop DS2023"} reqDate={"12-05-24"} category={"laptop"} approvalDate={"13-05-24"} reqStatus={"Approved"} ></AssetItem>
                         <AssetItem name={"Dell Laptop DS2023"} reqDate={"12-05-24"} category={"laptop"} approvalDate={"13-05-24"} reqStatus={"Approved"} ></AssetItem>
                     </div>
