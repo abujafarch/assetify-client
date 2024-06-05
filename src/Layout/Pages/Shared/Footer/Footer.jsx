@@ -1,12 +1,11 @@
 import React from 'react';
-import { useEmployee, useHR } from '../../../../hooks/useEmployee';
 import useUserStatus from '../../../../hooks/useUserStatus';
 
 const Footer = () => {
     const [employee, hr] = useUserStatus()
 
     return (
-        <footer className={`footer p-10 bg-neutral text-neutral-content ${employee && 'bg-[#0f172a]'}`}>
+        <footer className={`footer p-10 text-neutral-content ${(employee || hr) ? 'bg-[#0f172a]' : 'bg-neutral'}`}>
             <aside>
                 <img className='w-14 h-14 object-cover' src="https://i.ibb.co/ck1nYbn/assetify-tr.png" />
                 <p className='text-lg font-inter font-medium'>Assetify Service Ltd.<br />Providing Asset management service since 2023</p>

@@ -8,6 +8,9 @@ const Filter = () => {
                 <FiFilter></FiFilter>
                 <p>Filter</p>
             </button>
+            <div className="absolute bottom-1/2 left-1/2">
+                Hello I am here are filter
+            </div>
         </div>
     );
 };
