@@ -3,7 +3,7 @@ import Bullets from "./Bullets";
 
 const OurPackages = () => {
     return (
-        <div className="lg:mt-20 md:mt-16 font-inter sm:mt-10 mt-8 max-w-[1320px] mx-auto px-3 sm:px-6 md:px-8 lg:px-10">
+        <div className="lg:mt-32 md:mt-20 font-inter sm:mt-10 mt-8 max-w-[1320px] mx-auto px-3 sm:px-6 md:px-8 lg:px-10">
             <h2 className="text-center text-3xl md:text-4xl font-Inter font-bold">OUR PACKAGES</h2>
             <div className="mt-7 md:mt-12 lg:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 <div className="w-full bg-[] rounded-b-md custom-shadow">

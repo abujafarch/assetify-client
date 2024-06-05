@@ -2,26 +2,20 @@ import React, { useState } from 'react';
 import LiLinks from './LiLinks';
 import Profile from './Profile';
 import Logo from './Logo';
+import { useEmployee, useHR } from '../../../../hooks/useEmployee';
+import useUserStatus from '../../../../hooks/useUserStatus';
+import { RiMenLine, RiMenuLine } from 'react-icons/ri';
 
 const Navbar = () => {
 
-    const employee = false
-    const hr = true
-    // const user = false
+    const [employee, hr] = useUserStatus()
 
     const [scrollY, setScrollY] = useState(0)
 
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY
         setScrollY(scrollY)
-        // console.log(window);
     })
-
-    // window.addEventListener('scroll', () => {
-    //     const scrollY = window.scrollY
-    //     // console.log(scrollY, e);
-    //     setScrollY(scrollY)
-    // })
 
     const navLinks = <>
 
@@ -55,13 +49,14 @@ const Navbar = () => {
     </>
 
     return (
-        <div className={`  w-full py-2 ${scrollY < 20 ? 'bg-[#ffffff31] border-0' : 'bg-white border-b border-[#f0f0f0]'} transition-all duration-200 ease-in-out`}>
+        <div className={`  w-full py-2 ${scrollY < 20 ? 'bg-[#2b2a2a31] border-0' : !employee && 'bg-white border-b border-[#f0f0f0]'} ${employee && 'bg-[#0f172a] border-b border-[#f0f0f00a]'} transition-all duration-200 ease-in-out`}>
             <div className='px-2 sm:px-5 flex gap-5 items-center'>
                 <div className="navbar justify-between">
                     <div className="navbar-start ">
                         <div className="dropdown">
                             <div tabIndex={0} role="button" className=" lg:hidden mr-5">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                                {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg> */}
+                                <p className='text-2xl text-white w-max'><RiMenuLine></RiMenuLine></p>
                             </div>
                             <div tabIndex={0} className='list-none space-y-2 dropdown-content mt-3 z-[1] bg-base-100 w-52 custom-shadow rounded-md p-5'>
                                 {navLinks}
@@ -69,7 +64,7 @@ const Navbar = () => {
                         </div>
 
                         <div className="cursor-pointer flex items-center gap-3 ">
-                            <Logo imgLink={'https://i.ibb.co/ck1nYbn/assetify-tr.png'} title={'Assetify'}></Logo>
+                            <Logo imgLink={'https://i.ibb.co/ck1nYbn/assetify-tr.png'} title={employee || hr ?'Company':'Assetify'}></Logo>
                         </div>
                     </div>
 

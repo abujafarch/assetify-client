@@ -25,18 +25,18 @@ const Slider = () => {
             >
                 <SwiperSlide>
                     <div className='w-full h-full z-30'>
-                        <img className='w-full h-full object-cover' src="https://i.ibb.co/k3R9xYY/jilbert-ebrahimi-HAw-A1-N2gjo8-unsplash.jpg" />
+                        <img className='w-full h-full object-cover' src="https://i.ibb.co/mSpTtLs/Improving-the-Office-365-app-experience-in-virtual-environments-SOCIAL.png" />
 
                         <SlideText tag={"ADD, MANAGE, GROW"} title={"Your Best Partner to Recall Assets"} para={"Step into Efficiency, where you can manage your all returnable and not returnable assets easily. Dive into productivity and make growth your businesses"} btn={"Join as HR Manager"}></SlideText>
 
-                        <div className='w-full h-full z-10 absolute top-0 bg-[#00000070]'></div>
+                        <div className='w-full h-full z-10 absolute top-0 bg-[#0000009d]'></div>
                     </div>
                 </SwiperSlide>
                 <SwiperSlide>
                     <div className='w-full h-full'>
-                        <img className='w-full h-full object-cover' src="https://i.ibb.co/hHWYZCq/lilly-rum-iy-KVGRu79-G4-unsplash.jpg" />
+                        <img className='w-full h-full object-cover' src="https://i.ibb.co/Lz6Xbrt/successfulbusinessteamwi-88818.jpg" />
                         <SlideText tag={"GET, USE, RETURN"} title={"Get any Assets you needed"} para={"You can get any asset from your office you needed. You can also return asset via this application. Join today as an Employee to access asset from office"} btn={"Join as Employee"}></SlideText>
-                        <div className='w-full h-full z-10 absolute top-0 bg-[#00000070]'></div>
+                        <div className='w-full h-full z-10 absolute top-0 bg-[#0000009d]'></div>
                     </div>
                 </SwiperSlide>
 
