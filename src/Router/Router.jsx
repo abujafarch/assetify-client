@@ -5,6 +5,7 @@ import MyAsset from "../Layout/Pages/EmployeePages/MyAsset/MyAsset";
 import MyTeam from "../Layout/Pages/EmployeePages/MyTeam/MyTeam";
 import RequestAsset from "../Layout/Pages/EmployeePages/RequestAsset/RequestAsset";
 import Assets from "../Layout/Pages/HrPages/Assets/Assets";
+import AddAsset from "../Layout/Pages/HrPages/AddAsset/AddAsset";
 
 export const router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
             {
                 path: 'assets',
                 element: <Assets></Assets>
+            },
+            {
+                path: 'add-asset',
+                element: <AddAsset></AddAsset>
             }
         ]
     },
