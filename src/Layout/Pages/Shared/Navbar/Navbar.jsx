@@ -42,7 +42,7 @@ const Navbar = () => {
             hr && <>
                 <LiLinks to={"/assets"} title={"Assets"}></LiLinks>
                 <LiLinks to={"/add-asset"} title={"Add Asset"}></LiLinks>
-                <LiLinks to={"/all-request"} title={"All Request"}></LiLinks>
+                <LiLinks to={"/all-requests"} title={"All Request"}></LiLinks>
                 {/* <LiLinks to={"/custom-request"} title={"Custom Requests"}></LiLinks> */}
                 <LiLinks to={"/employee-lists"} title={"My Employees"}></LiLinks>
                 <LiLinks to={"/add-employee"} title={"Add Employee"}></LiLinks>

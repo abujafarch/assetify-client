@@ -39,7 +39,7 @@ const Assets = () => {
                 </select>
             </div>
 
-            <div className="border mt-10 px-3 sm:px-5 py-5 sm:py-7 border-[#ffffff10] bg-[#ffffff03] rounded-md">
+            <div className="mt-10">
                 <div className="grid xs:grid-cols-2 md-lg:grid-cols-3 gap-5">
                     <HrAssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} quantity={"30"} category={"laptop"} addedDate={"13-05-24"} />
                     <HrAssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} quantity={"30"} category={"laptop"} addedDate={"13-05-24"} />
