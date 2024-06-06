@@ -4,6 +4,7 @@ import Home from "../Layout/Pages/Home/Home";
 import MyAsset from "../Layout/Pages/EmployeePages/MyAsset/MyAsset";
 import MyTeam from "../Layout/Pages/EmployeePages/MyTeam/MyTeam";
 import RequestAsset from "../Layout/Pages/EmployeePages/RequestAsset/RequestAsset";
+import Assets from "../Layout/Pages/HrPages/Assets/Assets";
 
 export const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
                 path: '/',
                 element: <Home></Home>
             },
+            //employee pages
             {
                 path: '/my-assets',
                 element: <MyAsset></MyAsset>
@@ -25,6 +27,11 @@ export const router = createBrowserRouter([
             {
                 path: '/request-asset',
                 element: <RequestAsset></RequestAsset>
+            },
+            //HR manager pages
+            {
+                path: 'assets',
+                element: <Assets></Assets>
             }
         ]
     },

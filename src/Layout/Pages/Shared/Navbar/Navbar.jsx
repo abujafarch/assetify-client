@@ -40,7 +40,7 @@ const Navbar = () => {
 
         {
             hr && <>
-                <LiLinks to={"/asset-lists"} title={"Assets"}></LiLinks>
+                <LiLinks to={"/assets"} title={"Assets"}></LiLinks>
                 <LiLinks to={"/add-asset"} title={"Add Asset"}></LiLinks>
                 <LiLinks to={"/all-request"} title={"All Request"}></LiLinks>
                 {/* <LiLinks to={"/custom-request"} title={"Custom Requests"}></LiLinks> */}
