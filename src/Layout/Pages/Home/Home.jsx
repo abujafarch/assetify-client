@@ -5,7 +5,10 @@ import MonthlyRequests from "./EmployeeHome/MonthlyRequest/MonthlyRequests";
 import PendingRequest from "./EmployeeHome/PendingRequest/PendingRequest";
 import EmployeesRequests from "./HrHome/EmployeesRequests/EmployeesRequests";
 import LimitedStock from "./HrHome/LimitedStock/LimitedStock";
+import MaxAssetsUsers from "./HrHome/MaxAssetsUsers/MaxAssetsUsers";
 import MostRequested from "./HrHome/MostRequested/MostRequested";
+import NextEvent from "./HrHome/NextEvent/NextEvent";
+import PieCharts from "./HrHome/PieChart/PieCharts";
 import OurPackages from "./OurPackages/OurPackages";
 import Slider from "./Slider/Slider";
 
@@ -40,6 +43,9 @@ const Home = () => {
                 <EmployeesRequests></EmployeesRequests>
                 <MostRequested></MostRequested>
                 <LimitedStock></LimitedStock>
+                <PieCharts></PieCharts>
+                <MaxAssetsUsers></MaxAssetsUsers>
+                <NextEvent></NextEvent>
             </div>
         )
     }
