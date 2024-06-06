@@ -7,6 +7,7 @@ import RequestAsset from "../Layout/Pages/EmployeePages/RequestAsset/RequestAsse
 import Assets from "../Layout/Pages/HrPages/Assets/Assets";
 import AddAsset from "../Layout/Pages/HrPages/AddAsset/AddAsset";
 import AllRequests from "../Layout/Pages/HrPages/AllRequests/AllRequests";
+import MyEmployees from "../Layout/Pages/HrPages/MyEmployees/MyEmployees";
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
             {
                 path: '/all-requests',
                 element: <AllRequests></AllRequests>
+            }, 
+            {
+                path: 'employee-lists',
+                element: <MyEmployees></MyEmployees>
             }
         ]
     },
