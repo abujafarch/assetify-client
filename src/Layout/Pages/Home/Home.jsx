@@ -22,8 +22,8 @@ const Home = () => {
 
     else if (employee) {
         return (
-            <div className="pt-20 pb-5 bg-[#0f172a] min-h-screen">
-                <div className="lg:py-28 md:py-20 sm:pt-14 pt-8 max-w-[1320px] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-5 px-3 sm:px-6 md:px-8 lg:px-10">
+            <div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
                     <PendingRequest></PendingRequest>
                     <MonthlyRequests></MonthlyRequests>
                     <Event></Event>
