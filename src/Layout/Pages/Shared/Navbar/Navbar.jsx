@@ -9,6 +9,8 @@ import { RiMenLine, RiMenuLine } from 'react-icons/ri';
 const Navbar = () => {
 
     const [employee, hr] = useUserStatus()
+    const employeeOrHr = employee || hr
+    // console.log(employeeOrHr);
 
     const [scrollY, setScrollY] = useState(0)
 
@@ -41,7 +43,7 @@ const Navbar = () => {
                 <LiLinks to={"/asset-lists"} title={"Assets"}></LiLinks>
                 <LiLinks to={"/add-asset"} title={"Add Asset"}></LiLinks>
                 <LiLinks to={"/all-request"} title={"All Request"}></LiLinks>
-                <LiLinks to={"/custom-request"} title={"Custom Requests"}></LiLinks>
+                {/* <LiLinks to={"/custom-request"} title={"Custom Requests"}></LiLinks> */}
                 <LiLinks to={"/employee-lists"} title={"My Employees"}></LiLinks>
                 <LiLinks to={"/add-employee"} title={"Add Employee"}></LiLinks>
             </>
@@ -49,7 +51,7 @@ const Navbar = () => {
     </>
 
     return (
-        <div className={`  w-full py-2 ${scrollY < 20 ? 'bg-[#2b2a2a31] border-0' : !employee && 'bg-white border-b border-[#f0f0f0]'} ${employee && 'bg-[#0f172a] border-b border-[#f0f0f00a]'} transition-all duration-200 ease-in-out`}>
+        <div className={`  w-full py-2 ${scrollY < 20 ? 'bg-[#2b2a2a31] border-0' : !employeeOrHr && 'bg-white border-b border-[#f0f0f0]'} ${employeeOrHr && 'bg-[#0f172a] border-b border-[#f0f0f00a]'} transition-all duration-200 ease-in-out`}>
             <div className='px-2 sm:px-5 flex gap-5 items-center'>
                 <div className="navbar justify-between">
                     <div className="navbar-start ">
@@ -64,7 +66,7 @@ const Navbar = () => {
                         </div>
 
                         <div className="cursor-pointer flex items-center gap-3 ">
-                            <Logo imgLink={'https://i.ibb.co/ck1nYbn/assetify-tr.png'} title={employee || hr ?'Company':'Assetify'}></Logo>
+                            <Logo imgLink={'https://i.ibb.co/ck1nYbn/assetify-tr.png'} title={employee || hr ? 'Company' : 'Assetify'}></Logo>
                         </div>
                     </div>
 

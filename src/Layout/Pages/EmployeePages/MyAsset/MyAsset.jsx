@@ -12,12 +12,21 @@ const MyAsset = () => {
             <div className="flex gap-5 items-center">
                 <Search></Search>
 
-                <button onClick={() => setFilterModalOpen(true)} className="flex border border-[#ffffff10] py-2 px-3 rounded-sm items-center font-raleway  gap-2 text-[#5e5e5e] bg-[#ffffff03]">
+                <button onClick={() => setFilterModalOpen(true)} className="flex border border-[#ffffff10] py-2 px-3 w-max rounded-sm items-center font-raleway  gap-2 text-[#5e5e5e] bg-[#ffffff03]">
                     <FiFilter></FiFilter>
                     <p>Filter</p>
                 </button>
 
-                {filterModalOpen && <Filter setFilterModalOpen={setFilterModalOpen}></Filter>}
+                {filterModalOpen && <Filter
+                    setFilterModalOpen={setFilterModalOpen}
+                    selectTitle1={"Approval Status"}
+                    selectTitle2={"Returnability"}
+                    option1={"pending"}
+                    option2={"approved"}
+                    option3={"returnable"}
+                    option4={"non-returnable"}
+                >
+                </Filter>}
             </div>
             <div className="border mt-10 px-3 sm:px-5 py-5 sm:py-7 border-[#ffffff10] bg-[#ffffff03] rounded-md">
                 <div className="space-y-3">
