@@ -4,6 +4,7 @@ import Search from "../../../../components/Search";
 import ReqItem from "./ReqItem";
 import { useState } from "react";
 import RequestModal from "./RequestModal";
+import { Helmet } from "react-helmet-async";
 
 
 const RequestAsset = () => {
@@ -13,6 +14,9 @@ const RequestAsset = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>My Request</title>
+            </Helmet>
             <div className="flex gap-5 items-center">
                 <Search></Search>
                 <button onClick={() => setFilterModalOpen(true)} className="flex w-max border border-[#ffffff10] py-2 px-3 rounded-sm items-center font-raleway  gap-2 text-[#5e5e5e] bg-[#ffffff03]">

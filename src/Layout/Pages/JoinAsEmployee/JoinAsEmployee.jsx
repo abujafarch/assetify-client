@@ -1,9 +1,13 @@
+import { Helmet } from "react-helmet-async";
 import InputFeild from "./InputFeild";
 
 
 const JoinAsEmployee = () => {
     return (
         <div className="px-3 sm:px-6 md:px-8 sm:pt-14 lg:py-52 md:py-20 lg:px-10">
+            <Helmet>
+                <title>Join as Employee</title>
+            </Helmet>
             <h2 className="font-raleway uppercase text-center text-xl xs:text-2xl">Sign Up as employee</h2>
             <div className="pb-5 space-y-6 max-w-[600px] mx-auto pt-3">
                 <form className="space-y-6">

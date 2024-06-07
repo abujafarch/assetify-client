@@ -3,12 +3,16 @@ import Search from "../../../../components/Search";
 import Filter from "../../../../components/Filter";
 import HrAssetItem from "./HrAssetItem";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 
 const Assets = () => {
     const [filterModalOpen, setFilterModalOpen] = useState(false)
     return (
         <div>
+            <Helmet>
+                <title>All Assets Lists</title>
+            </Helmet>
             <h1 className="font-raleway xs:text-xl text-[#a8a7a7] font-light uppercase mb-5 text-center">Asset Lists</h1>
             <div className="flex gap-5 items-center">
                 <Search></Search>

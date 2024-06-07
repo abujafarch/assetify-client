@@ -3,12 +3,16 @@ import Filter from "../../../../components/Filter";
 import Search from "../../../../components/Search";
 import AssetItem from "./AssetItem";
 import { FiFilter } from "react-icons/fi";
+import { Helmet } from "react-helmet-async";
 
 
 const MyAsset = () => {
     const [filterModalOpen, setFilterModalOpen] = useState(false)
     return (
         <div>
+            <Helmet>
+                <title>My Assets</title>
+            </Helmet>
             <div className="flex gap-5 items-center">
                 <Search></Search>
 

@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 
 
 const AddAsset = () => {
     return (
         <div className="font-raleway text-[#a8a7a7]">
+            <Helmet>
+                <title>Add Asset</title>
+            </Helmet>
             <h1 className="font-raleway xs:text-xl font-light uppercase mb-5 text-center">Add Asset</h1>
             <form className="">
                 <div className="grid gap-5 max-w-[600px] mx-auto">

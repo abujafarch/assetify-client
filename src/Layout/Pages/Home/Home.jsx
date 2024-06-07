@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import useUserStatus from "../../../hooks/useUserStatus";
 import About from "./About/About";
 import Event from "./EmployeeHome/Event/Event";
@@ -19,6 +20,9 @@ const Home = () => {
     if (!employee && !hr) {
         return (
             <div className="md:mb-24 sm:mb-16 mb-8 lg:mb-32">
+                <Helmet>
+                    <title>Home | Assetify</title>
+                </Helmet>
                 <Slider></Slider>
                 <About></About>
                 <OurPackages></OurPackages>
@@ -29,6 +33,9 @@ const Home = () => {
     else if (employee) {
         return (
             <div>
+                <Helmet>
+                    <title>Home | Company</title>
+                </Helmet>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
                     <PendingRequest></PendingRequest>
                     <MonthlyRequests></MonthlyRequests>
@@ -40,6 +47,9 @@ const Home = () => {
     else if (hr) {
         return (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <Helmet>
+                    <title>Home | Company</title>
+                </Helmet>
                 <EmployeesRequests></EmployeesRequests>
                 <MostRequested></MostRequested>
                 <LimitedStock></LimitedStock>

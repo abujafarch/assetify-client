@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NotAffiliatedEmployee from "./NotAffiliatedEmployee";
 import PackageSection from "./PackageSection";
+import { Helmet } from "react-helmet-async";
 
 
 const AddEmployee = () => {
@@ -9,6 +10,9 @@ const AddEmployee = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Add Employees</title>
+            </Helmet>
             <PackageSection></PackageSection>
 
             <h1 className="font-raleway mt-14 xs:text-xl text-[#a8a7a7] font-light uppercase mb-5 text-center">add employee</h1>

@@ -4,6 +4,9 @@ import HrRequestItem from "./HrRequestItem";
 const AllRequests = () => {
     return (
         <div className="text-[#a8a7a7]">
+            <Helmet>
+                <title>All Requests</title>
+            </Helmet>
             <h1 className="font-raleway xs:text-xl font-light uppercase mb-5 text-center">All Requests</h1>
 
             <div className=" mt-10 ">

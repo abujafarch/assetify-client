@@ -1,9 +1,13 @@
+import { Helmet } from "react-helmet-async";
 import EmployeeItem from "./EmployeeItem";
 
 
 const MyEmployees = () => {
     return (
-        <div  className="text-[#a8a7a7]">
+        <div className="text-[#a8a7a7]">
+            <Helmet>
+                <title>My Employees</title>
+            </Helmet>
             <h1 className="font-raleway xs:text-xl text-[#a8a7a7] font-light uppercase mb-5 text-center">my employees</h1>
             <div className="flex flex-col items-center">
                 <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
