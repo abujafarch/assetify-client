@@ -1,7 +1,7 @@
 
 
 let employee = false
-let hr = true
+let hr = false
 
 const useUserStatus = () => {
     return [employee, hr]

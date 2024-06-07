@@ -10,6 +10,8 @@ import AllRequests from "../Layout/Pages/HrPages/AllRequests/AllRequests";
 import MyEmployees from "../Layout/Pages/HrPages/MyEmployees/MyEmployees";
 import AddEmployee from "../Layout/Pages/HrPages/AddEmployee/AddEmployee";
 import Packages from "../Layout/Pages/HrPages/Packages/Packages";
+import SharedProfile from "../Layout/Pages/Shared/Profile/SharedProfile";
+import JoinAsEmployee from "../Layout/Pages/JoinAsEmployee/JoinAsEmployee";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +21,14 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path: '/employee-register',
+                element: <JoinAsEmployee></JoinAsEmployee>
+            },
+            {
+                path: '/hr-register',
+                element: <JoinAsEmployee></JoinAsEmployee>
             },
             //employee pages
             {
@@ -32,6 +42,10 @@ export const router = createBrowserRouter([
             {
                 path: '/request-asset',
                 element: <RequestAsset></RequestAsset>
+            },
+            {
+                path: '/employee-profile',
+                element: <SharedProfile></SharedProfile>
             },
             //HR manager pages
             {
@@ -57,7 +71,11 @@ export const router = createBrowserRouter([
             {
                 path: '/packages',
                 element: <Packages></Packages>
-            }
+            },
+            {
+                path: '/hr-profile',
+                element: <SharedProfile></SharedProfile>
+            },
         ]
     },
 ]);
