@@ -9,6 +9,7 @@ import AddAsset from "../Layout/Pages/HrPages/AddAsset/AddAsset";
 import AllRequests from "../Layout/Pages/HrPages/AllRequests/AllRequests";
 import MyEmployees from "../Layout/Pages/HrPages/MyEmployees/MyEmployees";
 import AddEmployee from "../Layout/Pages/HrPages/AddEmployee/AddEmployee";
+import Packages from "../Layout/Pages/HrPages/Packages/Packages";
 
 export const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
             {
                 path: '/add-employee',
                 element: <AddEmployee></AddEmployee>
+            },
+            {
+                path: '/packages',
+                element: <Packages></Packages>
             }
         ]
     },

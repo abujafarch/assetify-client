@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const PackageSection = () => {
@@ -10,7 +11,7 @@ const PackageSection = () => {
                 <p className="text-sm sm:text-left text-center mt-3">You cannot add more than <span className="border rounded-2xl py-[2px] px-2 bg-[#ffffff15] border-[#ffffff10]">5 employees</span></p>
             </div>
             <div>
-            <button className="px-5 uppercase text-xs py-[6px] rounded-sm border border-[#ffffff1f]">Expand limit</button>
+                <Link to='/packages'><button className="px-5 uppercase text-xs py-[6px] rounded-sm border border-[#ffffff1f]">Expand limit</button></Link>
             </div>
         </div>
     );
