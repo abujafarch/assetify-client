@@ -4,7 +4,7 @@ import InputFeild from "./InputFeild";
 const JoinAsEmployee = () => {
     return (
         <div className="px-3 sm:px-6 md:px-8 sm:pt-14 lg:py-52 md:py-20 lg:px-10">
-            <h2 className="font-raleway uppercase text-center text-xl xs:text-2xl">Sign Up</h2>
+            <h2 className="font-raleway uppercase text-center text-xl xs:text-2xl">Sign Up as employee</h2>
             <div className="pb-5 space-y-6 max-w-[600px] mx-auto pt-3">
                 <form className="space-y-6">
                     <InputFeild title={"Full name"} type={"text"} placeholder={"type your full name"}></InputFeild>
