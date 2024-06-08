@@ -5,8 +5,16 @@ import Navbar from './Pages/Shared/Navbar/Navbar';
 import useAuthInfo from '../hooks/useAuthInfo';
 
 const Main = () => {
-    const {employee, hr } = useAuthInfo()
-    // const {employee, hr } = useAuthInfo()
+    const { employee, hr, loading } = useAuthInfo()
+
+    if (loading) {
+        return (
+            <div className='flex items-center justify-center min-h-screen'>
+                <p><span className="loading loading-ring loading-lg"></span></p>
+            </div>
+        )
+    }
+
     return (
         <div className="">
             <div className='fixed w-full z-40'><Navbar /></div>

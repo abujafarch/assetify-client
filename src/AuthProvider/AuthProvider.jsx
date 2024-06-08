@@ -48,6 +48,7 @@ const AuthProvider = ({ children }) => {
                     .then(res => {
                         res.data.role === 'employee' && setEmployee(true)
                         res.data.role === 'hr' && setHr(true)
+                        setLoading(false)
                     })
             }
             else if (!currentUser) {
@@ -55,10 +56,11 @@ const AuthProvider = ({ children }) => {
                     .then(res => {
                         res.data.role === 'employee' && setEmployee(false)
                         res.data.role === 'hr' && setHr(false)
+                        setLoading(false)
                     })
             }
             //setting loading false
-            setLoading(false)
+
         })
         return () => {
             unSubscribe()
