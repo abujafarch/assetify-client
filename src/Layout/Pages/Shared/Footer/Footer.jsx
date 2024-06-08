@@ -1,8 +1,8 @@
-import React from 'react';
-import useUserStatus from '../../../../hooks/useUserStatus';
+
+import useAuthInfo from '../../../../hooks/useAuthInfo';
 
 const Footer = () => {
-    const [employee, hr] = useUserStatus()
+    const {employee, hr } = useAuthInfo()
 
     return (
         <footer className={`footer p-10 text-neutral-content ${(employee || hr) ? 'bg-[#0f172a]' : 'bg-neutral'}`}>

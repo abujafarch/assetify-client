@@ -2,10 +2,11 @@ import { Outlet } from 'react-router-dom';
 import '../App.css'
 import Footer from './Pages/Shared/Footer/Footer';
 import Navbar from './Pages/Shared/Navbar/Navbar';
-import useUserStatus from '../hooks/useUserStatus';
+import useAuthInfo from '../hooks/useAuthInfo';
 
 const Main = () => {
-    const [employee, hr] = useUserStatus()
+    const {employee, hr } = useAuthInfo()
+    // const {employee, hr } = useAuthInfo()
     return (
         <div className="">
             <div className='fixed w-full z-40'><Navbar /></div>

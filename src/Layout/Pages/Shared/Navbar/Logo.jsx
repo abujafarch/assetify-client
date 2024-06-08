@@ -1,9 +1,8 @@
-import useUserStatus from "../../../../hooks/useUserStatus";
-
+import useAuthInfo from "../../../../hooks/useAuthInfo";
 
 const Logo = ({ imgLink, title }) => {
 
-    const [employee, hr] = useUserStatus()
+    const {employee, hr } = useAuthInfo()
 
     return (
         <>

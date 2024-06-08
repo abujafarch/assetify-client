@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import useUserStatus from "../../../hooks/useUserStatus";
 import About from "./About/About";
 import Event from "./EmployeeHome/Event/Event";
 import MonthlyRequests from "./EmployeeHome/MonthlyRequest/MonthlyRequests";
@@ -12,12 +11,13 @@ import NextEvent from "./HrHome/NextEvent/NextEvent";
 import PieCharts from "./HrHome/PieChart/PieCharts";
 import OurPackages from "./OurPackages/OurPackages";
 import Slider from "./Slider/Slider";
+import useAuthInfo from "../../../hooks/useAuthInfo";
 
 const Home = () => {
 
-    const [employee, hr] = useUserStatus()
+    const {employee, hr, user } = useAuthInfo()
 
-    if (!employee && !hr) {
+    if (!employee && !hr && !user) {
         return (
             <div className="md:mb-24 sm:mb-16 mb-8 lg:mb-32">
                 <Helmet>
@@ -30,7 +30,7 @@ const Home = () => {
         );
     }
 
-    else if (employee) {
+    else if (employee && user) {
         return (
             <div>
                 <Helmet>
@@ -44,7 +44,7 @@ const Home = () => {
             </div>
         )
     }
-    else if (hr) {
+    else if (hr && user) {
         return (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                 <Helmet>

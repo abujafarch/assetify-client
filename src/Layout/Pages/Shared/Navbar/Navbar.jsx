@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LiLinks from './LiLinks';
 import Profile from './Profile';
 import Logo from './Logo';
-import { useEmployee, useHR } from '../../../../hooks/useEmployee';
-import useUserStatus from '../../../../hooks/useUserStatus';
-import { RiMenLine, RiMenuLine } from 'react-icons/ri';
+import { RiMenuLine } from 'react-icons/ri';
+import useAuthInfo from '../../../../hooks/useAuthInfo';
 
 const Navbar = () => {
 
-    const [employee, hr] = useUserStatus()
+    const {employee, hr } = useAuthInfo()
     const employeeOrHr = employee || hr
     // console.log(employeeOrHr);
 
@@ -16,7 +15,9 @@ const Navbar = () => {
 
     window.addEventListener('scroll', () => {
         const scrollY = window.scrollY
-        setScrollY(scrollY)
+        if (scrollY < 70) {
+            setScrollY(scrollY)
+        }
     })
 
     const navLinks = <>
