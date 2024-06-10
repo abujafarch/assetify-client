@@ -4,10 +4,24 @@ import Filter from "../../../../components/Filter";
 import HrAssetItem from "./HrAssetItem";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useAuthInfo from "../../../../hooks/useAuthInfo";
 
 
 const Assets = () => {
     const [filterModalOpen, setFilterModalOpen] = useState(false)
+    const { hrCompany } = useAuthInfo()
+
+    const axiosSecure = useAxiosSecure()
+    const { data: assets, refetch } = useQuery({
+        queryKey: ['assets'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/assets/${hrCompany._id}`)
+            return res.data
+        }
+    })
+
     return (
         <div>
             <Helmet>
@@ -45,12 +59,9 @@ const Assets = () => {
 
             <div className="mt-10">
                 <div className="grid xs:grid-cols-2 md-lg:grid-cols-3 gap-5">
-                    <HrAssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} quantity={"30"} category={"laptop"} addedDate={"13-05-24"} />
-                    <HrAssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} quantity={"30"} category={"laptop"} addedDate={"13-05-24"} />
-                    <HrAssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} quantity={"30"} category={"laptop"} addedDate={"13-05-24"} />
-                    <HrAssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} quantity={"30"} category={"laptop"} addedDate={"13-05-24"} />
-                    <HrAssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} quantity={"30"} category={"laptop"} addedDate={"13-05-24"} />
-                    <HrAssetItem name={"Dell Laptop DS2023 Dell Laptop DS2023"} quantity={"30"} category={"laptop"} addedDate={"13-05-24"} />
+                    {
+                        assets.map(asset => <HrAssetItem key={asset._id} name={asset.assetName} quantity={asset.quantity} category={asset.assetType} addedDate={asset.addedDate} />)
+                    }
                 </div>
             </div>
         </div>

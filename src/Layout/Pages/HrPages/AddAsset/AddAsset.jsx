@@ -16,9 +16,10 @@ const AddAsset = () => {
         const assetType = form.assetType.value
         const returnability = form.returnability.value
         const quantity = parseInt(form.quantity.value)
+        const addedDate = new Date().toLocaleDateString("en-GB")
 
-        console.log({ assetName, returnability, assetType, quantity, companyId: hrCompany._id });
-        const asset = { assetName, returnability, assetType, quantity, companyId: hrCompany._id }
+        console.log({ assetName, addedDate, returnability, assetType, quantity, companyId: hrCompany._id });
+        const asset = { assetName, returnability, assetType, quantity, addedDate, companyId: hrCompany._id }
 
         axiosSecure.post('/add-asset', asset)
             .then(res => {
