@@ -1,6 +1,6 @@
 
 
-const HrAssetItem = ({ name, quantity, category, addedDate }) => {
+const HrAssetItem = ({ name, quantity, category, addedDate, id, handleDeleteAsset }) => {
     return (
         <div className="text-[#a8a7a7] bg-[#ffffff03] font-raleway w-full border rounded-sm px-2 border-[#ffffff10] py-4">
             <div className="w-full">
@@ -14,7 +14,7 @@ const HrAssetItem = ({ name, quantity, category, addedDate }) => {
 
             <div className="space-x-4 w-full flex mt-5">
                 <button className="px-5 uppercase text-xs py-[6px] rounded-sm border border-[#ffffff1f]">update</button>
-                <button className="px-5 uppercase text-xs py-[6px] rounded-sm border border-[#ffffff1f]">delete</button>
+                <button onClick={() => handleDeleteAsset(id)} className="px-5 uppercase text-xs py-[6px] rounded-sm border border-[#ffffff1f]">delete</button>
             </div>
         </div>
     );

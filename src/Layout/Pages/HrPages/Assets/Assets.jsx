@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
+import toast from "react-hot-toast";
 
 
 const Assets = () => {
@@ -14,13 +15,24 @@ const Assets = () => {
     const { hrCompany } = useAuthInfo()
 
     const axiosSecure = useAxiosSecure()
-    const { data: assets, refetch } = useQuery({
+    const { data: assets = [], refetch } = useQuery({
         queryKey: ['assets'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/assets/${hrCompany._id}`)
             return res.data
         }
     })
+
+    const handleDeleteAsset = (id) => {
+        axiosSecure.delete(`/asset/${id}`)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.deletedCount > 0) {
+                    toast.success('asset deleted')
+                }
+                refetch()
+            })
+    }
 
     return (
         <div>
@@ -60,7 +72,7 @@ const Assets = () => {
             <div className="mt-10">
                 <div className="grid xs:grid-cols-2 md-lg:grid-cols-3 gap-5">
                     {
-                        assets.map(asset => <HrAssetItem key={asset._id} name={asset.assetName} quantity={asset.quantity} category={asset.assetType} addedDate={asset.addedDate} />)
+                        assets.map(asset => <HrAssetItem key={asset._id} name={asset.assetName} quantity={asset.quantity} category={asset.assetType} addedDate={asset.addedDate} handleDeleteAsset={handleDeleteAsset} id={asset._id} />)
                     }
                 </div>
             </div>

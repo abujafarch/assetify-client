@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWith
 import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/firebase.config";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 export const AuthContext = createContext()
 
@@ -50,13 +51,13 @@ const AuthProvider = ({ children }) => {
                         res.data.role === 'employee' && setEmployee(true)
                         res.data.role === 'hr' && setHr(true)
                         if (hr) {
-                            'hello'
                             axiosSecure.get(`/company/${user.email}`)
                                 .then(res => {
                                     setHrCompany(res.data)
                                     setLoading(false)
                                 })
                         }
+                        setLoading(false)
                     })
             }
             else if (!currentUser) {
@@ -68,7 +69,6 @@ const AuthProvider = ({ children }) => {
                     })
             }
             //setting loading false
-
         })
         return () => {
             unSubscribe()
