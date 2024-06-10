@@ -7,7 +7,7 @@ import useAuthInfo from '../../../../hooks/useAuthInfo';
 
 const Navbar = () => {
 
-    const {employee, hr } = useAuthInfo()
+    const { employee, hr } = useAuthInfo()
     const employeeOrHr = employee || hr
     // console.log(employeeOrHr);
 
@@ -67,7 +67,7 @@ const Navbar = () => {
                         </div>
 
                         <div className="cursor-pointer flex items-center gap-3 ">
-                            <Logo imgLink={'https://i.ibb.co/ck1nYbn/assetify-tr.png'} title={employee || hr ? 'Company' : 'Assetify'}></Logo>
+                            <Logo></Logo>
                         </div>
                     </div>
 

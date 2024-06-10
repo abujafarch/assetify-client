@@ -53,9 +53,7 @@ const AuthProvider = ({ children }) => {
                             'hello'
                             axiosSecure.get(`/company/${user.email}`)
                                 .then(res => {
-                                    console.log(res.data);
                                     setHrCompany(res.data)
-                                    console.log(hrCompany);
                                     setLoading(false)
                                 })
                         }

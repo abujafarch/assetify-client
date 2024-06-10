@@ -3,6 +3,7 @@ import '../App.css'
 import Footer from './Pages/Shared/Footer/Footer';
 import Navbar from './Pages/Shared/Navbar/Navbar';
 import useAuthInfo from '../hooks/useAuthInfo';
+import { Toaster } from 'react-hot-toast';
 
 const Main = () => {
     const { employee, hr, loading } = useAuthInfo()
@@ -36,6 +37,7 @@ const Main = () => {
                 {(employee || hr) && <hr className="border-none h-[2px] bg-[#2b3440]" />}
                 <Footer />
             </div>
+            <Toaster />
         </div>
     );
 };
