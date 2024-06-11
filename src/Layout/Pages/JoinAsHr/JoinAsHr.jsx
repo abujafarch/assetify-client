@@ -10,7 +10,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const JoinAsHr = () => {
 
-    const { createUser, profileUpdate } = useAuthInfo()
+    const { createUser, profileUpdate, setHr } = useAuthInfo()
     const axiosPublic = useAxiosPublic()
     const navigate = useNavigate()
 
@@ -22,9 +22,9 @@ const JoinAsHr = () => {
         const email = form.email.value
         const password = form.password.value
         const birthDate = form.birthDate.value
-        const purchasedPackage = parseInt(form.purchasedPackage.value)
+        const purchasingPackage = parseInt(form.purchasingPackage.value)
         const imageFile = { image: form.photo.files[0] }
-        console.log({ name, companyName, email, password, birthDate, imageFile, purchasedPackage });
+        console.log({ name, companyName, email, password, birthDate, imageFile, purchasingPackage });
 
 
         //password check here
@@ -52,7 +52,8 @@ const JoinAsHr = () => {
                     axiosPublic.post('/hr-users', user)
                         .then(res => {
                             console.log(res.data)
-                            navigate('/')
+                            setHr(true)
+                            navigate('/payments', { state: { purchasingPackage } })
                         })
 
                     //updating profile here
@@ -91,7 +92,7 @@ const JoinAsHr = () => {
 
                     <HrInputField required={true} name={"birthDate"} title={"Date of Birth"} type={"date"} />
 
-                    <HrPackageSelect required={true} name={'purchasedPackage'}></HrPackageSelect>
+                    <HrPackageSelect required={true} name={'purchasingPackage'}></HrPackageSelect>
 
                     <HrInputField type={"submit"} value={"Sign up"} InputClasses={"cursor-pointer uppercase"} />
                 </form>

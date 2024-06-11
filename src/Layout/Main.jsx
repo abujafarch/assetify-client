@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 
 const Main = () => {
     const { employee, hr, loading } = useAuthInfo()
+    console.log(employee, hr);
 
     if (loading) {
         return (

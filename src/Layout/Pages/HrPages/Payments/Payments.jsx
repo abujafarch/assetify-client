@@ -3,10 +3,18 @@ import { loadStripe } from '@stripe/stripe-js';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import CheckoutForm from './CheckoutForm';
+import { Navigate, useLocation } from 'react-router-dom';
 
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK)
 const Payments = () => {
+    const location = useLocation()
+    const purchasingPackage = location?.state?.purchasingPackage
+    // console.log(location?.state?.purchasingPackage)
+    if (!location.state) {
+        return <Navigate to='/packages'></Navigate>
+    }
+    
     return (
         <div>
             <Helmet>
@@ -17,7 +25,7 @@ const Payments = () => {
 
             <div>
                 <Elements stripe={stripePromise}>
-                    <CheckoutForm></CheckoutForm>
+                    <CheckoutForm purchasingPackage={purchasingPackage}></CheckoutForm>
                 </Elements>
             </div>
         </div>

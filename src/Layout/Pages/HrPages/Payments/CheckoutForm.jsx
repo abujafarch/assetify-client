@@ -2,9 +2,11 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ purchasingPackage }) => {
 
     const { user } = useAuthInfo()
     const [error, setError] = useState('')
@@ -12,14 +14,15 @@ const CheckoutForm = () => {
     const stripe = useStripe()
     const elements = useElements()
     const axiosSecure = useAxiosSecure()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        axiosSecure.post('/create-payment-intent', { price: 75 })
+        axiosSecure.post('/create-payment-intent', { price: purchasingPackage })
             .then(res => {
                 console.log(res.data.clientSecret);
                 setClientSecret(res.data.clientSecret)
             })
-    }, [axiosSecure])
+    }, [axiosSecure, purchasingPackage])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -62,6 +65,15 @@ const CheckoutForm = () => {
         }
         else {
             console.log('payment intent: ', paymentIntent);
+            // const { data: packageLimit = 0 } = useQuery({})
+            axiosSecure.put(`/package/${user?.email}`, { purchasingPackage })
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data.modifiedCount > 0){
+                        navigate('/add-employee')
+                    }
+                })
+
         }
     }
 
@@ -86,7 +98,7 @@ const CheckoutForm = () => {
 
             <button className="text-[#a8a7a7] text-lg uppercase font-poppins font-light px-5 py-1 border rounded-sm border-[#6868682f] mt-16" type="submit"
                 disabled={!stripe || !clientSecret}>
-                Pay $5
+                Pay ${purchasingPackage}
             </button>
 
             <p className="text-red-600 mt-5 font-raleway uppercase">{error}</p>

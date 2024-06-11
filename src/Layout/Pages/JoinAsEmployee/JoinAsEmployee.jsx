@@ -10,7 +10,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const JoinAsEmployee = () => {
 
-    const { createUser, profileUpdate } = useAuthInfo()
+    const { createUser, profileUpdate, setEmployee } = useAuthInfo()
     const axiosPublic = useAxiosPublic()
     const navigate = useNavigate()
 
@@ -22,6 +22,7 @@ const JoinAsEmployee = () => {
         const password = form.password.value
         const birthDate = form.birthDate.value
         const imageFile = { image: form.photo.files[0] }
+        const hired = false
         console.log({ name, email, password, birthDate, imageFile });
 
         //password check here
@@ -45,10 +46,13 @@ const JoinAsEmployee = () => {
                     console.log('user created')
 
                     //make user to database
-                    const user = { name, email, birthDate, image: image, role: 'employee' }
+                    const user = { name, email, birthDate, hired, image: image, role: 'employee' }
                     axiosPublic.post('/users', user)
                         .then(res => {
                             console.log(res.data)
+                            if (res.data.insertedId) {
+                                setEmployee(true)
+                            }
                         })
 
                     //updating profile here

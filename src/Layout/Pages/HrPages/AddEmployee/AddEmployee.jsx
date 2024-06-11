@@ -2,11 +2,22 @@ import { useState } from "react";
 import NotAffiliatedEmployee from "./NotAffiliatedEmployee";
 import PackageSection from "./PackageSection";
 import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 
 const AddEmployee = () => {
     const [employees, setEmployees] = useState([])
     console.log(employees);
+    const axiosSecure = useAxiosSecure()
+
+    const { data: notHiredEmployees = [], refetch } = useQuery({
+        queryKey: ['not-hired-employees'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/not-hired-employees')
+            return res.data
+        }
+    })
 
     return (
         <div>
@@ -19,12 +30,10 @@ const AddEmployee = () => {
 
             <div className="flex flex-col items-center">
                 <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-                    <NotAffiliatedEmployee employees={employees} setEmployees={setEmployees} image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Abujafar Chhaleh"} role={"employee"} />
-                    <NotAffiliatedEmployee employees={employees} setEmployees={setEmployees} image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Ashiqur Rahman"} role={"employee"} />
-                    <NotAffiliatedEmployee employees={employees} setEmployees={setEmployees} image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Abujafar Chhaleh"} role={"employee"} />
-                    <NotAffiliatedEmployee employees={employees} setEmployees={setEmployees} image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Abujafar Chhaleh"} role={"employee"} />
-                    <NotAffiliatedEmployee employees={employees} setEmployees={setEmployees} image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Abujafar Chhaleh"} role={"employee"} />
-                    <NotAffiliatedEmployee employees={employees} setEmployees={setEmployees} image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Abujafar Chhaleh"} role={"employee"} />
+                    {
+                        notHiredEmployees.map(notHiredEmployee => <NotAffiliatedEmployee key={notHiredEmployee._id} employees={employees} setEmployees={setEmployees} image={notHiredEmployee.image} name={notHiredEmployee.name} role={notHiredEmployee.role} />)
+                    }
+                    {/* <NotAffiliatedEmployee employees={employees} setEmployees={setEmployees} image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Abujafar Chhaleh"} role={"employee"} /> */}
                 </div>
 
                 <button disabled className="px-3 cursor-not-allowed text-[#a8a7a7] mt-10 uppercase text-xs py-[6px] rounded-sm border border-[#ffffff1f]">add selected employees</button>

@@ -15,7 +15,7 @@ import useAuthInfo from "../../../hooks/useAuthInfo";
 
 const Home = () => {
 
-    const {employee, hr, user } = useAuthInfo()
+    const { employee, hr, user, loading } = useAuthInfo()
 
     if (!employee && !hr && !user) {
         return (

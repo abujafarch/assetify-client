@@ -50,6 +50,7 @@ const AuthProvider = ({ children }) => {
                     .then(res => {
                         res.data.role === 'employee' && setEmployee(true)
                         res.data.role === 'hr' && setHr(true)
+                        console.log(res)
                         if (hr) {
                             axiosSecure.get(`/company/${user.email}`)
                                 .then(res => {
@@ -57,7 +58,9 @@ const AuthProvider = ({ children }) => {
                                     setLoading(false)
                                 })
                         }
-                        setLoading(false)
+                        else {
+                            setLoading(false)
+                        }
                     })
             }
             else if (!currentUser) {
@@ -73,9 +76,9 @@ const AuthProvider = ({ children }) => {
         return () => {
             unSubscribe()
         }
-    }, [auth, axiosSecure, user, hr])
+    }, [auth, axiosSecure, user, hr, employee])
 
-    const authInfo = { createUser, profileUpdate, loading, user, logOut, login, employee, hr, setEmployee, setHr, hrCompany }
+    const authInfo = { createUser, profileUpdate, loading, user, logOut, login, employee, hr, setEmployee, setHr, hrCompany, }
 
     // useEffect(() => {
     //     const unSubscribe = onAuthStateChanged(auth, currentUser => {
