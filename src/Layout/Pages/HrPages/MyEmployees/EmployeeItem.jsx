@@ -1,6 +1,9 @@
 
 
-const EmployeeItem = ({image, name, role}) => {
+const EmployeeItem = ({ employee }) => {
+    
+    const { image, name, role } = employee
+
     return (
         <div className="flex bg-[#ffffff03] h-max flex-col items-center p-3 rounded-sm max-w-[155px] border border-[#192747]">
             <img className="rounded-sm w-24 h-24 object-cover" src={image} />
