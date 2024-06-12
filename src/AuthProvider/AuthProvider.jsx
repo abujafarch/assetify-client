@@ -11,11 +11,43 @@ const AuthProvider = ({ children }) => {
     const auth = getAuth(app)
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState()
-    const [hrCompany, setHrCompany] = useState(true)
+    const [hrCompany, setHrCompany] = useState()
 
     const axiosSecure = useAxiosSecure()
     const [employee, setEmployee] = useState(false)
     const [hr, setHr] = useState(false)
+    const [employeeInfo, setEmployeeInfo] = useState()
+
+    const { isLoading: rolePending } = useQuery({
+        queryKey: ['roleData'],
+        enabled: user ? true : false,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/user?email=${user?.email}`)
+            res.data.role === 'employee' && setEmployee(true)
+            res.data.role === 'hr' && setHr(true)
+        },
+    })
+
+    const { isLoading: hrCompanyPending, refetch: hrCompanyRefetch } = useQuery({
+        queryKey: ['hrCompany'],
+        enabled: hr,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/company/${user.email}`)
+            setHrCompany(res.data)
+        },
+    })
+
+    const { isLoading: userInfoPending, refetch: userInfoRefetch } = useQuery({
+        queryKey: ['hrCompany'],
+        enabled: employee,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/employee-info/${user.email}`)
+            setEmployeeInfo(res.data)
+        },
+    })
+
+    const pendingState = (rolePending || hrCompanyPending || userInfoPending)
+    // console.log(employeeInfo)
 
     const createUser = (email, password) => {
         setLoading(true)
@@ -43,73 +75,21 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('current user: ', currentUser);
             setUser(currentUser)
+            setLoading(false)
 
-            //making decision that if user is true then user is hr or employee
-            if (currentUser) {
-                axiosSecure.get(`/user?email=${user?.email}`)
-                    .then(res => {
-                        res.data.role === 'employee' && setEmployee(true)
-                        res.data.role === 'hr' && setHr(true)
-                        console.log(res)
-                        if (hr) {
-                            axiosSecure.get(`/company/${user.email}`)
-                                .then(res => {
-                                    setHrCompany(res.data)
-                                    setLoading(false)
-                                })
-                        }
-                        else {
-                            setLoading(false)
-                        }
-                    })
+            if (!currentUser) {
+                setLoading(false)
+                setHr(false)
+                setEmployee(false)
             }
-            else if (!currentUser) {
-                axiosSecure.get(`/user?email=${user?.email}`)
-                    .then(res => {
-                        res.data.role === 'employee' && setEmployee(false)
-                        res.data.role === 'hr' && setHr(false)
-                        setLoading(false)
-                    })
-            }
-            //setting loading false
         })
         return () => {
             unSubscribe()
         }
     }, [auth, axiosSecure, user, hr, employee])
 
-    const authInfo = { createUser, profileUpdate, loading, user, logOut, login, employee, hr, setEmployee, setHr, hrCompany, }
+    const authInfo = { createUser, profileUpdate, loading, user, logOut, login, employee, hr, setEmployee, setHr, hrCompany, pendingState, hrCompanyRefetch, userInfoRefetch, employeeInfo }
 
-    // useEffect(() => {
-    //     const unSubscribe = onAuthStateChanged(auth, currentUser => {
-    //         console.log('current user from authState:', currentUser);
-
-    //         const userEmail = currentUser?.email || user?.email;
-    //         const loggedUser = { email: userEmail };
-
-    //         if (updateProfile) {
-    //             setUser(currentUser)
-    //             setUpdateProfile(false)
-    //         }
-    //         setUser(currentUser)
-    //         setLoading(false)
-    //         if (currentUser) {
-    //             axios.post('https://wisdom-server.vercel.app/jwt', loggedUser, { withCredentials: true })
-    //                 .then(res => {
-    //                     console.log(res.data);
-    //                 })
-    //         }
-    //         else {
-    //             axios.post('https://wisdom-server.vercel.app/logout', loggedUser, { withCredentials: true })
-    //                 .then(res => {
-    //                     console.log(res.data);
-    //                 })
-    //         }
-    //     })
-    //     return () => {
-    //         unSubscribe()
-    //     }
-    // }, [auth, updateProfile, user])
 
     return (
         <AuthContext.Provider value={authInfo}>

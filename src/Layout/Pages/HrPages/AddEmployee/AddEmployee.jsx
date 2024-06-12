@@ -5,6 +5,8 @@ import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
+import usePckgAndEmplyLmt from "../../../../hooks/usePckgAndEmplyLmt";
+import toast from "react-hot-toast";
 
 
 const AddEmployee = () => {
@@ -13,6 +15,8 @@ const AddEmployee = () => {
     const [employees, setEmployees] = useState([])
     console.log(employees);
     const axiosSecure = useAxiosSecure()
+
+    const [packageLimit, addedEmployees, packagePlan, addedEmployeeRefetch] = usePckgAndEmplyLmt()
 
     const { data: notHiredEmployees = [], refetch } = useQuery({
         queryKey: ['not-hired-employees'],
@@ -24,13 +28,32 @@ const AddEmployee = () => {
 
     const handleSelectedItemAdd = () => {
         console.log("i am working")
+
+        if (!packageLimit) {
+            return toast.error(`you have no package. please buy package`)
+        }
+
+        if (packageLimit < addedEmployees?.length + employees?.length) {
+            return toast.error(`you can not add more than ${packageLimit} employee`)
+        }
+
         axiosSecure.put(`/add-employees`, { employees, companyId: hrCompany._id })
             .then(res => {
                 console.log(res.data)
                 if (res.data.modifiedCount > 0) {
                     refetch()
+                    addedEmployeeRefetch()
+                    setEmployees([])
                 }
             })
+    }
+
+    if (notHiredEmployees?.length === 0) {
+        return (
+            <div className="flex flex-col items-center space-y-3 px-3">
+                <p className="font-raleway uppercase font-light text-center">There is no employee. Contact with your employees to register.</p>
+            </div>
+        )
     }
 
     return (
@@ -38,7 +61,7 @@ const AddEmployee = () => {
             <Helmet>
                 <title>Add Employees</title>
             </Helmet>
-            <PackageSection></PackageSection>
+            <PackageSection packageLimit={packageLimit} addedEmployees={addedEmployees} packagePlan={packagePlan} ></PackageSection>
 
             <h1 className="font-raleway mt-14 xs:text-xl text-[#a8a7a7] font-light uppercase mb-5 text-center">add employee</h1>
 
@@ -50,7 +73,10 @@ const AddEmployee = () => {
                             employees={employees}
                             setEmployees={setEmployees}
                             notHiredEmployee={notHiredEmployee}
-                            refetch={refetch} />)
+                            refetch={refetch}
+                            packageLimit={packageLimit}
+                            addedEmployees={addedEmployees}
+                            addedEmployeeRefetch={addedEmployeeRefetch} />)
                     }
                 </div>
 

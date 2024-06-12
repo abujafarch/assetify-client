@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 
 const Assets = () => {
@@ -32,6 +33,17 @@ const Assets = () => {
                 }
                 refetch()
             })
+    }
+
+    if (assets?.length === 0) {
+        return (
+            <div className="flex flex-col items-center space-y-3 px-3">
+                <p className="font-raleway uppercase font-light text-center">You have no asset.</p>
+                <Link to='/add-asset'>
+                    <button className="uppercase border border-[#464646] px-2 py-1" >add asset</button>
+                </Link>
+            </div>
+        )
     }
 
     return (

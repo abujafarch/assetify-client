@@ -13,7 +13,7 @@ const RequestModal = ({ setRequestModalOpen }) => {
     }
 
     return (
-        <div ref={requestModalDiv} onClick={handleRequestModalClose} className="fixed top-0 flex items-center justify-center bg-[#00000049] left-0 z-50 backdrop-blur-sm w-full h-full">
+        <div ref={requestModalDiv} onClick={handleRequestModalClose} className="fixed top-0 flex items-center justify-center bg-[#0000001f] left-0 z-50 backdrop-blur-sm w-full h-full">
             <div className="bg-[#0f172a] border relative rounded-md p-3 xs:p-5 border-[#192747]">
                 <button onClick={() => setRequestModalOpen(false)} className="absolute text-xl right-2 top-2"><RxCross2></RxCross2></button>
                 <p className="font-raleway mt-2 mb-5 text-center uppercase font-light">additional note</p>

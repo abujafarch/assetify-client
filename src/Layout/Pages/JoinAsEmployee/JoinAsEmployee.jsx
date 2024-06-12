@@ -52,6 +52,7 @@ const JoinAsEmployee = () => {
                             console.log(res.data)
                             if (res.data.insertedId) {
                                 setEmployee(true)
+                                navigate('/')
                             }
                         })
 

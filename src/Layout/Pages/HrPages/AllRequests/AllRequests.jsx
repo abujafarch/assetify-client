@@ -3,6 +3,19 @@ import HrRequestItem from "./HrRequestItem";
 
 
 const AllRequests = () => {
+
+
+
+
+
+    // if (requests?.length === 0) {
+    //     return (
+    //         <div className="flex flex-col items-center space-y-3 px-3">
+    //             <p className="font-raleway uppercase font-light text-center">You have no asset request.</p>
+    //         </div>
+    //     )
+    // }
+
     return (
         <div className="text-[#a8a7a7]">
             <Helmet>

@@ -5,12 +5,28 @@ import ReqItem from "./ReqItem";
 import { useState } from "react";
 import RequestModal from "./RequestModal";
 import { Helmet } from "react-helmet-async";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useAuthInfo from "../../../../hooks/useAuthInfo";
 
 
 const RequestAsset = () => {
 
     const [filterModalOpen, setFilterModalOpen] = useState(false)
     const [requestModalOpen, setRequestModalOpen] = useState(false)
+    const axiosSecure = useAxiosSecure()
+    const { employeeInfo, employee } = useAuthInfo()
+    // console.log(employeeInfo.companyId);
+
+    const { data: myCompanyAssets = [] } = useQuery({
+        queryKey: ['myCompanyAssets'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`myCompany-assets/${employeeInfo.companyId}`)
+            return res.data
+        },
+        enabled: employee
+    })
+    // console.log(myCompanyAssets)
 
     return (
         <div>
@@ -37,15 +53,9 @@ const RequestAsset = () => {
             </div>
 
             <div className="grid xl:grid-cols-4 mt-5 lg:grid-cols-3 xs:grid-cols-2 gap-5">
-                <ReqItem requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} name={"Samsung S24 Ultra"} type={"Returnable"} available={"Available"}></ReqItem>
-
-                <ReqItem requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} name={"Samsung S24 Ultra Samsung S24 Ultra"} type={"Non-returnable"} available={"Out of stock"}></ReqItem>
-
-                <ReqItem requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} name={"Samsung S24 Ultra Samsung S24 Ultra"} type={"Non-returnable"} available={"Out of stock"}></ReqItem>
-
-                <ReqItem requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} name={"Samsung S24 Ultra Samsung S24 Ultra"} type={"Non-returnable"} available={"Out of stock"}></ReqItem>
-
-                <ReqItem requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} name={"Samsung S24 Ultra Samsung S24 Ultra"} type={"Non-returnable"} available={"Out of stock"}></ReqItem>
+                {
+                    myCompanyAssets.map(asset => <ReqItem key={asset._id} requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} asset={asset}></ReqItem>)
+                }
             </div>
         </div>
     );

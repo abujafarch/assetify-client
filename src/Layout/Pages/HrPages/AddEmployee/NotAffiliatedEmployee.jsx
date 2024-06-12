@@ -1,8 +1,9 @@
+import toast from "react-hot-toast";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 
-const NotAffiliatedEmployee = ({ notHiredEmployee, setEmployees, employees, refetch }) => {
+const NotAffiliatedEmployee = ({ notHiredEmployee, setEmployees, employees, refetch, packageLimit, addedEmployees, addedEmployeeRefetch }) => {
 
     const { name, image, role, email } = notHiredEmployee
     const { hrCompany } = useAuthInfo()
@@ -26,11 +27,21 @@ const NotAffiliatedEmployee = ({ notHiredEmployee, setEmployees, employees, refe
 
     //user affiliating functionality
     const handleAffiliation = () => {
+
+        if (!packageLimit) {
+            return toast.error(`you have no package. please buy package`)
+        }
+
+        if (packageLimit === addedEmployees?.length) {
+            return toast.error(`you can not add more than ${packageLimit} employees`)
+        }
+
         axiosSecure.put(`/user-affiliation/${email}`, { companyId: hrCompany._id })
             .then(res => {
                 console.log(res.data)
                 if (res.data.modifiedCount > 0) {
                     refetch()
+                    addedEmployeeRefetch()
                 }
             })
     }

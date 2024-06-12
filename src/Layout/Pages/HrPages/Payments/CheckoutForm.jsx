@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ purchasingPackage }) => {
 
-    const { user } = useAuthInfo()
+    const { user, hrCompanyRefetch } = useAuthInfo()
     const [error, setError] = useState('')
     const [clientSecret, setClientSecret] = useState('')
     const stripe = useStripe()
@@ -70,6 +70,7 @@ const CheckoutForm = ({ purchasingPackage }) => {
                 .then(res => {
                     console.log(res.data);
                     if (res.data.modifiedCount > 0){
+                        hrCompanyRefetch()
                         navigate('/add-employee')
                     }
                 })

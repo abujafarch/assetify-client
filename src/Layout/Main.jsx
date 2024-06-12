@@ -6,10 +6,10 @@ import useAuthInfo from '../hooks/useAuthInfo';
 import { Toaster } from 'react-hot-toast';
 
 const Main = () => {
-    const { employee, hr, loading } = useAuthInfo()
-    console.log(employee, hr);
+    const { employee, hr, loading, pendingState } = useAuthInfo()
+    // console.log(employee, hr);
 
-    if (loading) {
+    if (loading || pendingState) {
         return (
             <div className='flex items-center justify-center min-h-screen'>
                 <p><span className="loading loading-ring loading-lg"></span></p>
