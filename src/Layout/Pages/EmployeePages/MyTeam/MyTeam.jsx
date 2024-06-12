@@ -1,8 +1,25 @@
 import { Helmet } from "react-helmet-async";
 import TeamMember from "./TeamMember";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useAuthInfo from "../../../../hooks/useAuthInfo";
 
 
 const MyTeam = () => {
+
+    const axiosSecure = useAxiosSecure()
+    const { employeeInfo } = useAuthInfo()
+
+    const { data: myTeamMembers = [] } = useQuery({
+        queryKey: ['myTeam'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/my-team/${employeeInfo.companyId}`)
+            return res.data
+        },
+        enabled: employeeInfo ? true : false
+    })
+    // console.log(myTeamMembers)
+
     return (
         <div>
             <Helmet>
@@ -12,29 +29,13 @@ const MyTeam = () => {
 
             <div className="flex flex-col items-center">
                 <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Abujafar Chhaleh"} role={"admin"} />
 
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Ashiqur Rahman"} role={"admin"} />
+                    {
+                        myTeamMembers.map(member => <TeamMember key={member._id} member={member} />)
+                    }
+                    {/* <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Abujafar Chhaleh"} role={"admin"} />
 
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Shezan"} role={"admin"} />
-
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Normel Jhalmuri"} role={"admin"} />
-
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Sazidul Islam"} role={"admin"} />
-
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Sazidul Islam"} role={"admin"} />
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Shezan"} role={"admin"} />
-
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Normel Jhalmuri"} role={"admin"} />
-
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Sazidul Islam"} role={"admin"} />
-
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Sazidul Islam"} role={"admin"} />
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Normel Jhalmuri"} role={"admin"} />
-
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Sazidul Islam"} role={"admin"} />
-
-                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Sazidul Islam"} role={"admin"} />
+                    <TeamMember image={'https://i.ibb.co/whW8Hnb/360-F-60785976-MUAspg-GG0-Zccrdc-Xgx-XGR9ih-Q3-Iq-VNHh.jpg'} name={"Ashiqur Rahman"} role={"admin"} /> */}
                 </div>
             </div>
         </div>

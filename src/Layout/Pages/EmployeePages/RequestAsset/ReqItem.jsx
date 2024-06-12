@@ -15,7 +15,7 @@ const ReqItem = ({ asset, requestModalOpen, setRequestModalOpen }) => {
                 <button disabled={!quantity} onClick={() => setRequestModalOpen(true)} className={`${!quantity ? 'cursor-not-allowed' : ''} font-raleway px-3 py-[6px] text-sm font-light border border-[#192747] uppercase`}>request</button>
             </div>
 
-            {requestModalOpen && <RequestModal setRequestModalOpen={setRequestModalOpen}></RequestModal>}
+            {requestModalOpen && <RequestModal setRequestModalOpen={setRequestModalOpen} asset={asset}></RequestModal>}
         </div>
     );
 };

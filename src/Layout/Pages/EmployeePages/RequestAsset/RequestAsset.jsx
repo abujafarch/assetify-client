@@ -15,7 +15,7 @@ const RequestAsset = () => {
     const [filterModalOpen, setFilterModalOpen] = useState(false)
     const [requestModalOpen, setRequestModalOpen] = useState(false)
     const axiosSecure = useAxiosSecure()
-    const { employeeInfo, employee } = useAuthInfo()
+    const { employeeInfo } = useAuthInfo()
     // console.log(employeeInfo.companyId);
 
     const { data: myCompanyAssets = [] } = useQuery({
@@ -24,7 +24,7 @@ const RequestAsset = () => {
             const res = await axiosSecure.get(`myCompany-assets/${employeeInfo.companyId}`)
             return res.data
         },
-        enabled: employee
+        enabled: employeeInfo ? true : false
     })
     // console.log(myCompanyAssets)
 

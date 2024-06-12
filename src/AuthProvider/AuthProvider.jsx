@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
             const res = await axiosSecure.get(`/user?email=${user?.email}`)
             res.data.role === 'employee' && setEmployee(true)
             res.data.role === 'hr' && setHr(true)
+            return 'roleData'
         },
     })
 
@@ -34,15 +35,17 @@ const AuthProvider = ({ children }) => {
         queryFn: async () => {
             const res = await axiosSecure.get(`/company/${user.email}`)
             setHrCompany(res.data)
+            return 'hrCompany'
         },
     })
 
     const { isLoading: userInfoPending, refetch: userInfoRefetch } = useQuery({
-        queryKey: ['hrCompany'],
+        queryKey: ['employeeInfo'],
         enabled: employee,
         queryFn: async () => {
             const res = await axiosSecure.get(`/employee-info/${user.email}`)
             setEmployeeInfo(res.data)
+            return 'employeeInfo'
         },
     })
 
