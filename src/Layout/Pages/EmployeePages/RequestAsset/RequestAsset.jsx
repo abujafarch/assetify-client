@@ -26,6 +26,8 @@ const RequestAsset = () => {
         },
         enabled: employeeInfo ? true : false
     })
+
+    const [requestedItem, setRequestedItem] = useState()
     // console.log(myCompanyAssets)
 
     return (
@@ -54,9 +56,12 @@ const RequestAsset = () => {
 
             <div className="grid xl:grid-cols-4 mt-5 lg:grid-cols-3 xs:grid-cols-2 gap-5">
                 {
-                    myCompanyAssets.map(asset => <ReqItem key={asset._id} requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} asset={asset}></ReqItem>)
+                    myCompanyAssets.map(asset => <ReqItem key={asset._id} setRequestedItem={setRequestedItem} requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} asset={asset}></ReqItem>)
                 }
             </div>
+
+            {requestModalOpen && <RequestModal requestedItem={requestedItem} setRequestModalOpen={setRequestModalOpen} ></RequestModal>}
+
         </div>
     );
 };

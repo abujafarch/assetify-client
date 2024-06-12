@@ -15,7 +15,7 @@ import useAuthInfo from "../../../hooks/useAuthInfo";
 
 const Home = () => {
 
-    const { employee, hr, user, loading } = useAuthInfo()
+    const { employee, hr, user, loading, employeeInfo } = useAuthInfo()
 
     if (!employee && !hr && !user) {
         return (
@@ -32,16 +32,20 @@ const Home = () => {
 
     else if (employee && user) {
         return (
-            <div>
-                <Helmet>
-                    <title>Home | Company</title>
-                </Helmet>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
-                    <PendingRequest></PendingRequest>
-                    <MonthlyRequests></MonthlyRequests>
-                    <Event></Event>
+            employeeInfo.hired ?
+                <div>
+                    <Helmet>
+                        <title>Home | Company</title>
+                    </Helmet>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 ">
+                        <PendingRequest></PendingRequest>
+                        <MonthlyRequests></MonthlyRequests>
+                        <Event></Event>
+                    </div>
+                </div> : 
+                <div>
+                    <p className="text-center uppercase font-raleway text-[#8f8f8f]">You are not connected with any company. Please contact with you HR manger</p>
                 </div>
-            </div>
         )
     }
     else if (hr && user) {

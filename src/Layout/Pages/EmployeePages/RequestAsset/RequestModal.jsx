@@ -5,11 +5,10 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
 
-const RequestModal = ({ setRequestModalOpen, asset }) => {
+const RequestModal = ({ setRequestModalOpen, requestedItem }) => {
 
-    const { employeeInfo } = useAuthInfo()
-    const requestModalDiv = useRef()
     const axiosSecure = useAxiosSecure()
+    const requestModalDiv = useRef()
 
     const handleRequestModalClose = (e) => {
         if (requestModalDiv.current === e.target) {
@@ -18,21 +17,13 @@ const RequestModal = ({ setRequestModalOpen, asset }) => {
         // console.log(requestModalDiv.current, e.target);
     }
 
-    const handleRequestAsset = (e) => {
+    const handleAssetRequest = (e) => {
         e.preventDefault()
+
         const form = e.target
         const note = form.note.value
-        const requestedItem = {
-            assetName: asset.assetName,
-            assetType: asset.assetType,
-            assetId: asset._id,
-            requesterName: employeeInfo.name,
-            requesterEmail: employeeInfo.email,
-            companyId: employeeInfo.companyId,
-            requestedDate: new Date().toLocaleDateString('en-GB'),
-            additionalNote: note,
-            status: 'pending'
-        }
+        requestedItem.additionalNote = note
+
         axiosSecure.post('asset-request', requestedItem)
             .then(res => {
                 // console.log(res.data)
@@ -51,7 +42,7 @@ const RequestModal = ({ setRequestModalOpen, asset }) => {
             <div className="bg-[#0f172a] border relative rounded-md p-3 xs:p-5 border-[#192747]">
                 <button onClick={() => setRequestModalOpen(false)} className="absolute text-xl right-2 top-2"><RxCross2></RxCross2></button>
                 <p className="font-raleway mt-2 mb-5 text-center uppercase font-light">additional note</p>
-                <form onSubmit={handleRequestAsset}>
+                <form onSubmit={handleAssetRequest}>
                     <textarea required className="bg-transparent w-[250px] xs:w-[400px] sm:w-[460px] h-[200px] p-3 outline-none border rounded-sm border-[#192747] font-raleway placeholder:text-[#353535] text-[#a8a7a7]" placeholder="Write your additional note" name="note"></textarea>
 
                     <div className="mt-5 flex items-center justify-center">
