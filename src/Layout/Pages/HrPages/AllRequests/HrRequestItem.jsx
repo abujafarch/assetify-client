@@ -7,7 +7,10 @@ const HrRequestItem = ({ allRequestRefetch, request }) => {
     const axiosSecure = useAxiosSecure()
 
     const handleApprove = async () => {
-        const res = await axiosSecure.put(`/approve-asset/${request?.assetId}`)
+        console.log('i am hitting in approve')
+
+        const res = await axiosSecure.put(`/approve-asset?assetId=${request?.assetId}&requestId=${request?._id}`)
+
         if (res.data.modifiedCount > 0) {
             toast.success('asset approved')
             allRequestRefetch()
@@ -17,7 +20,8 @@ const HrRequestItem = ({ allRequestRefetch, request }) => {
         }
     }
     const handleReject = async () => {
-        const res = await axiosSecure.delete(`/reject-asset/${request?.assetId}`)
+        console.log('i am hitting in reject')
+        const res = await axiosSecure.delete(`/reject-asset/${request?._id}`)
         if (res.data.deletedCount > 0) {
             toast.success('asset rejected')
             allRequestRefetch()

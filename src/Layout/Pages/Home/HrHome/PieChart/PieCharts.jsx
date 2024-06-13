@@ -1,11 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import useAxiosSecure from '../../../../../hooks/useAxiosSecure';
+import useAuthInfo from '../../../../../hooks/useAuthInfo';
 
 
-const data = [
-    { name: 'Returnable', value: 400 },
-    { name: 'Non-returnable', value: 300 },
-];
+
 
 const COLORS = ['#6b03a8', '#c50aff'];
 
@@ -24,8 +24,27 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 
 const PieCharts = () => {
+
+    const axiosSecure = useAxiosSecure()
+    const { hrCompany } = useAuthInfo()
+
+    const { data: returnability = [] } = useQuery({
+        queryKey: ['returnability'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/employee-returnability/${hrCompany._id}`)
+            // console.log(res.data)
+            return res.data
+        }
+    })
+
+    const data = [
+        { name: returnability[0]?._id, value: returnability[0]?.quantity },
+        { name: returnability[1]?._id, value: returnability[1]?.quantity },
+    ]
+
+
     return (
-        <div className='p-5 h-max border flex flex-col items-center border-[#ffffff10] rounded-md bg-[#ffffff03] text-white'> 
+        <div className='p-5 h-max border flex flex-col items-center border-[#ffffff10] rounded-md bg-[#ffffff03] text-white'>
             <h3 className='uppercase text-center text-sm text-[#a8a7a7] font-raleway'>returnable and non-returnable items comparison</h3>
             <div className='w-[220px] h-[300px]'>
                 <ResponsiveContainer width="100%" height="100%">

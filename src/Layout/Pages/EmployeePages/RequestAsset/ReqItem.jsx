@@ -13,6 +13,7 @@ const ReqItem = ({ asset, setRequestedItem, setRequestModalOpen }) => {
             assetName: asset.assetName,
             assetType: asset.assetType,
             assetId: asset._id,
+            returnability: asset.returnability,
             requesterName: employeeInfo.name,
             requesterEmail: employeeInfo.email,
             companyId: employeeInfo.companyId,
