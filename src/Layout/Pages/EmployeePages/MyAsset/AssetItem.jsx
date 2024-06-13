@@ -1,8 +1,21 @@
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 
-const AssetItem = ({ name, category, reqDate, approvalDate, reqStatus, Action, myAsset }) => {
+const AssetItem = ({ myAsset, myAssetRefetch }) => {
 
-    const pending = false
+    const axiosSecure = useAxiosSecure()
+    // const pending = false
+    const handleCancelingRequest = async () => {
+        const res = await axiosSecure.delete(`/requested-item/${myAsset?._id}`)
+        if (res.data.deletedCount > 0) {
+            toast.success('request canceled')
+            myAssetRefetch()
+        }
+        else{
+            toast.error('something is wrong please try again')
+        }
+    }
 
     return (
         <div className="text-[#a8a7a7] grid xs:grid-cols-2 gap-5 md:grid-cols-3 font-raleway border rounded-sm px-2 border-[#ffffff10] py-4">
@@ -19,7 +32,7 @@ const AssetItem = ({ name, category, reqDate, approvalDate, reqStatus, Action, m
 
             <div className="space-x-4 w-full flex md:justify-end items-center">
                 {myAsset?.status === 'pending' ?
-                    <button className="px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f]">Cancel</button> :
+                    <button onClick={handleCancelingRequest} className="px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f]">Cancel</button> :
                     <>
                         <button className="px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f]">Print</button>
                         <button className="px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f]">Return</button>

@@ -15,6 +15,7 @@ import JoinAsEmployee from "../Layout/Pages/JoinAsEmployee/JoinAsEmployee";
 import JoinAsHr from "../Layout/Pages/JoinAsHr/JoinAsHr";
 import Login from "../Layout/Pages/Login/Login";
 import Payments from "../Layout/Pages/HrPages/Payments/Payments";
+import EmployeRoute from "../PrivateRoutes/EmployeRoute";
 
 export const router = createBrowserRouter([
     {
@@ -40,19 +41,19 @@ export const router = createBrowserRouter([
             //employee pages
             {
                 path: '/my-assets',
-                element: <MyAsset></MyAsset>
+                element: <EmployeRoute><MyAsset></MyAsset></EmployeRoute>
             },
             {
                 path: '/my-team',
-                element: <MyTeam></MyTeam>
+                element: <EmployeRoute><MyTeam></MyTeam></EmployeRoute>
             },
             {
                 path: '/request-asset',
-                element: <RequestAsset></RequestAsset>
+                element: <EmployeRoute><RequestAsset></RequestAsset></EmployeRoute>
             },
             {
                 path: '/employee-profile',
-                element: <SharedProfile></SharedProfile>
+                element: <EmployeRoute><SharedProfile></SharedProfile></EmployeRoute>
             },
             //HR manager pages
             {

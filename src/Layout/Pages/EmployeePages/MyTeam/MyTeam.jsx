@@ -20,6 +20,12 @@ const MyTeam = () => {
     })
     // console.log(myTeamMembers)
 
+    if (!employeeInfo.hired) {
+        return <div>
+            <p className="text-center uppercase font-raleway text-[#8f8f8f]">You are not connected with any company. Please contact with you HR manger</p>
+        </div>
+    }
+
     return (
         <div>
             <Helmet>

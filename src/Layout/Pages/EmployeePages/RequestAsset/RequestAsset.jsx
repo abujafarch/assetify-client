@@ -30,6 +30,12 @@ const RequestAsset = () => {
     const [requestedItem, setRequestedItem] = useState()
     // console.log(myCompanyAssets)
 
+    if (!employeeInfo.hired) {
+        return <div>
+            <p className="text-center uppercase font-raleway text-[#8f8f8f]">You are not connected with any company. Please contact with you HR manger</p>
+        </div>
+    }
+
     return (
         <div>
             <Helmet>
@@ -54,11 +60,14 @@ const RequestAsset = () => {
                 </Filter>}
             </div>
 
-            <div className="grid xl:grid-cols-4 mt-5 lg:grid-cols-3 xs:grid-cols-2 gap-5">
-                {
-                    myCompanyAssets.map(asset => <ReqItem key={asset._id} setRequestedItem={setRequestedItem} requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} asset={asset}></ReqItem>)
-                }
-            </div>
+            {myCompanyAssets?.length ?
+                <div className="grid xl:grid-cols-4 mt-5 lg:grid-cols-3 xs:grid-cols-2 gap-5">
+                    {
+                        myCompanyAssets.map(asset => <ReqItem key={asset._id} setRequestedItem={setRequestedItem} requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} asset={asset}></ReqItem>)
+                    }
+                </div> :
+                <p className="text-center mt-4 uppercase">Your HR do not added any asset.</p>
+            }
 
             {requestModalOpen && <RequestModal requestedItem={requestedItem} setRequestModalOpen={setRequestModalOpen} ></RequestModal>}
 

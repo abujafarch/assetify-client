@@ -21,11 +21,14 @@ const PendingRequest = () => {
     return (
         <div className="border h-max border-[#ffffff10] p-5 pb-8 rounded-md bg-[#ffffff03] text-white">
             <h2 className="text-xl text-[#a8a7a7] font-semibold font-raleway">My pending requests</h2>
-            <div className="mt-5 border-t border-[#ffffff10]">
-                {
-                    pendingRequests.map(requestItem => <Items key={requestItem._id} name={requestItem?.assetName} category={requestItem?.assetType} reqDate={requestItem?.requestedDate}></Items>)
-                }
-            </div>
+            {pendingRequests?.length ?
+                <div className="mt-5 border-t border-[#ffffff10]">
+                    {
+                        pendingRequests.map(requestItem => <Items key={requestItem._id} name={requestItem?.assetName} category={requestItem?.assetType} reqDate={requestItem?.requestedDate}></Items>)
+                    }
+                </div> :
+                <p className="text-center mt-4 uppercase">You have no pending requests</p>
+            }
         </div>
     );
 };

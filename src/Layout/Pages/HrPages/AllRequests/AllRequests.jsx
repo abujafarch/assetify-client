@@ -1,12 +1,23 @@
 import { Helmet } from "react-helmet-async";
 import HrRequestItem from "./HrRequestItem";
-
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import useAuthInfo from "../../../../hooks/useAuthInfo";
+import { useQuery } from "@tanstack/react-query";
 
 const AllRequests = () => {
 
+    const axiosSecure = useAxiosSecure()
+    const { hrCompany } = useAuthInfo()
 
-
-
+    const { data: allRequests = [], refetch: allRequestRefetch } = useQuery({
+        queryKey: ['all-requests'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`all-requests/${hrCompany._id}`)
+            // console.log(res.data)
+            return res.data
+        },
+        enabled: hrCompany ? true : false
+    })
 
     // if (requests?.length === 0) {
     //     return (
@@ -25,11 +36,9 @@ const AllRequests = () => {
 
             <div className=" mt-10 ">
                 <div className="grid sm:grid-cols-2 md-lg:grid-cols-3 gap-5">
-                    <HrRequestItem assetName={"Dell Laptop DS2023 Dell Laptop DS2023"} status={"pending"} category={"laptop"} requestDate={"13-05-24"} requesterName={"Ashiqur Rahman"} email={"357jafar@gmail.com"} />
-                    <HrRequestItem assetName={"Dell Laptop DS2023 Dell Laptop DS2023"} status={"pending"} category={"laptop"} requestDate={"13-05-24"} requesterName={"Ashiqur Rahman"} email={"357jafar@gmail.com"} />
-                    <HrRequestItem assetName={"Dell Laptop DS2023 Dell Laptop DS2023"} status={"pending"} category={"laptop"} requestDate={"13-05-24"} requesterName={"Ashiqur Rahman"} email={"357jafar@gmail.com"} />
-                    <HrRequestItem assetName={"Dell Laptop DS2023 Dell Laptop DS2023"} status={"pending"} category={"laptop"} requestDate={"13-05-24"} requesterName={"Ashiqur Rahman"} email={"357jafar@gmail.com"} />
-                    <HrRequestItem assetName={"Dell Laptop DS2023 Dell Laptop DS2023"} status={"pending"} category={"laptop"} requestDate={"13-05-24"} requesterName={"Ashiqur Rahman"} email={"357jafar@gmail.com"} />
+                    {
+                        allRequests.map(request => <HrRequestItem key={request._id} request={request} allRequestRefetch={allRequestRefetch} />)
+                    }
                 </div>
             </div>
         </div>

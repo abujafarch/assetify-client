@@ -15,7 +15,7 @@ const MyAsset = () => {
     const axiosSecure = useAxiosSecure()
     const { employeeInfo } = useAuthInfo()
 
-    const { data } = useQuery({
+    const { refetch: myAssetRefetch } = useQuery({
         queryKey: ['myAssets'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/my-assets/${employeeInfo.email}`)
@@ -28,6 +28,13 @@ const MyAsset = () => {
     // console.log(myAssets);
 
     const [filterModalOpen, setFilterModalOpen] = useState(false)
+
+    if (!employeeInfo.hired) {
+        return <div>
+            <p className="text-center uppercase font-raleway text-[#8f8f8f]">You are not connected with any company. Please contact with you HR manger</p>
+        </div>
+    }
+
     return (
         <div>
             <Helmet>
@@ -53,12 +60,15 @@ const MyAsset = () => {
                 </Filter>}
             </div>
             <div className="border mt-10 px-3 sm:px-5 py-5 sm:py-7 border-[#ffffff10] bg-[#ffffff03] rounded-md">
-                <div className="space-y-3">
-                    {
-                        myAssets.map(myAsset => <AssetItem key={myAsset._id} myAsset={myAsset} name={"Dell Laptop DS2023 Dell Laptop DS2023"} reqDate={"12-05-24"} category={"laptop"} approvalDate={"13-05-24"} reqStatus={"Approved"} ></AssetItem>)
-                    }
+                {myAssets?.length ?
+                    <div className="space-y-3">
+                        {
+                            myAssets.map(myAsset => <AssetItem key={myAsset._id} myAsset={myAsset} myAssetRefetch={myAssetRefetch} ></AssetItem>)
+                        }
 
-                </div>
+                    </div> :
+                    <p className="text-center uppercase">You have no requested or approved asset </p>
+                }
             </div>
         </div>
     );

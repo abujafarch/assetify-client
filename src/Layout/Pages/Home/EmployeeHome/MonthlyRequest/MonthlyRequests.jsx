@@ -22,11 +22,14 @@ const MonthlyRequests = () => {
     return (
         <div className="border h-max border-[#ffffff10] p-5 pb-8 rounded-md bg-[#ffffff03] text-white">
             <h2 className="text-xl text-[#a8a7a7] font-semibold font-raleway">My monthly requests</h2>
-            <div className="mt-5 border-t border-[#ffffff10]">
-                {
-                    monthlyRequests.map(request => <Items key={request._id} name={request?.assetName} category={request.assetType} reqDate={request.requestedDate}></Items>)
-                }
-            </div>
+            {monthlyRequests?.length ?
+                <div className="mt-5 border-t border-[#ffffff10]">
+                    {
+                        monthlyRequests.map(request => <Items key={request._id} name={request?.assetName} category={request.assetType} reqDate={request.requestedDate}></Items>)
+                    }
+                </div> :
+                <p className="text-center mt-4 uppercase">You have no any monthly requests</p>
+            }
         </div>
     );
 };
