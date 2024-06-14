@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import AssetFilter from "./AssetFilter";
 import { IoMdRefresh } from "react-icons/io";
+import AssetSearch from "./AssetSearch";
 
 
 const Assets = () => {
@@ -44,8 +45,16 @@ const Assets = () => {
         const sortValue = e.target.value
 
         const res = await axiosSecure.get(`/sort-by-quantity?companyId=${hrCompany?._id}&sortValue=${sortValue}`)
-        
+
         setAssets(res.data)
+    }
+
+    const handleSearching = async (input) => {
+        // e.preventDefault()
+        const keyWord = input
+        const res = await axiosSecure.get(`/search-asset?companyId=${hrCompany?._id}&keyWord=${keyWord}`)
+        setAssets(res.data)
+        // console.log(res.data)
     }
 
     const handleDeleteAsset = (id) => {
@@ -59,17 +68,6 @@ const Assets = () => {
             })
     }
 
-    if (assets?.length === 0) {
-        return (
-            <div className="flex flex-col items-center space-y-3 px-3">
-                <p className="font-raleway uppercase font-light text-center">You have no asset.</p>
-                <Link to='/add-asset'>
-                    <button className="uppercase border border-[#464646] px-2 py-1" >add asset</button>
-                </Link>
-            </div>
-        )
-    }
-
     return (
         <div>
             <Helmet>
@@ -77,7 +75,8 @@ const Assets = () => {
             </Helmet>
             <h1 className="font-raleway xs:text-xl text-[#a8a7a7] font-light uppercase mb-5 text-center">Asset Lists</h1>
             <div className="flex gap-5 items-center">
-                <Search></Search>
+
+                <AssetSearch handleSearching={handleSearching} ></AssetSearch>
 
                 <button onClick={() => setFilterModalOpen(true)} className="flex border border-[#ffffff10] py-2 px-3 w-max rounded-sm items-center font-raleway  gap-2 text-[#5e5e5e] bg-[#ffffff03]">
                     <FiFilter></FiFilter>
@@ -107,13 +106,21 @@ const Assets = () => {
                 </select>
             </div>
 
-            <div className="mt-10">
-                <div className="grid xs:grid-cols-2 md-lg:grid-cols-3 gap-5">
-                    {
-                        assets.map(asset => <HrAssetItem key={asset._id} name={asset.assetName} quantity={asset.quantity} category={asset.assetType} addedDate={asset.addedDate} handleDeleteAsset={handleDeleteAsset} id={asset._id} />)
-                    }
+            {assets?.length ?
+                <div className="mt-10">
+                    <div className="grid xs:grid-cols-2 md-lg:grid-cols-3 gap-5">
+                        {
+                            assets.map(asset => <HrAssetItem key={asset._id} name={asset.assetName} quantity={asset.quantity} category={asset.assetType} addedDate={asset.addedDate} handleDeleteAsset={handleDeleteAsset} id={asset._id} />)
+                        }
+                    </div>
+                </div> :
+                <div className="flex flex-col items-center space-y-3 px-3">
+                    <p className="font-raleway uppercase font-light text-center">You have no asset.</p>
+                    <Link to='/add-asset'>
+                        <button className="uppercase border border-[#464646] px-2 py-1" >add asset</button>
+                    </Link>
                 </div>
-            </div>
+            }
         </div>
     );
 };

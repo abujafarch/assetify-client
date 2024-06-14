@@ -8,6 +8,10 @@ import { Helmet } from "react-helmet-async";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
+import RequestAssetFilter from "./RequestAssetFilter";
+import { IoMdRefresh } from "react-icons/io";
+import toast from "react-hot-toast";
+import RequestSearch from "./RequestSearch";
 
 
 const RequestAsset = () => {
@@ -17,18 +21,34 @@ const RequestAsset = () => {
     const axiosSecure = useAxiosSecure()
     const { employeeInfo } = useAuthInfo()
     // console.log(employeeInfo.companyId);
+    const [requestedItem, setRequestedItem] = useState()
+    const [myCompanyAssets, setMyCompanyAssets] = useState([])
 
-    const { data: myCompanyAssets = [] } = useQuery({
+    const { refetch: requestAssetRefetch } = useQuery({
         queryKey: ['myCompanyAssets'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`myCompany-assets/${employeeInfo.companyId}`)
-            return res.data
+            const res = await axiosSecure.get(`myCompany-assets/${employeeInfo?.companyId}`)
+            setMyCompanyAssets(res.data)
+            return 'myCompanyAsset'
         },
         enabled: employeeInfo.hired ? true : false
     })
 
-    const [requestedItem, setRequestedItem] = useState()
-    // console.log(myCompanyAssets)
+    const handleRequestAssetsFilter = async (availability, returnability) => {
+        if (availability === 'select' && returnability === 'select') {
+            return toast.error('Please select at least one field to filter asset')
+        }
+        const res = await axiosSecure.get(`/filter-request-assets?companyId=${employeeInfo?.companyId}&availability=${availability}&returnability=${returnability}`)
+        setMyCompanyAssets(res.data)
+        setFilterModalOpen(false)
+    }
+
+    const handleRequestAssetSearch = async (keyWord) => {
+        const res = await axiosSecure.get(`/search-request-asset?companyId=${employeeInfo?.companyId}&keyWord=${keyWord}`)
+        setMyCompanyAssets(res.data)
+        console.log(res.data)
+    }
+
 
     if (!employeeInfo.hired) {
         return <div>
@@ -42,13 +62,15 @@ const RequestAsset = () => {
                 <title>My Request</title>
             </Helmet>
             <div className="flex gap-5 items-center">
-                <Search></Search>
+
+                <RequestSearch handleRequestAssetSearch={handleRequestAssetSearch} />
+
                 <button onClick={() => setFilterModalOpen(true)} className="flex w-max border border-[#ffffff10] py-2 px-3 rounded-sm items-center font-raleway  gap-2 text-[#5e5e5e] bg-[#ffffff03]">
                     <FiFilter></FiFilter>
                     <p>Filter</p>
                 </button>
 
-                {filterModalOpen && <Filter
+                {filterModalOpen && <RequestAssetFilter
                     setFilterModalOpen={setFilterModalOpen}
                     selectTitle1={"Availability"}
                     selectTitle2={"Returnability"}
@@ -56,8 +78,10 @@ const RequestAsset = () => {
                     option2={"out of stock"}
                     option3={"returnable"}
                     option4={"non-returnable"}
-                >
-                </Filter>}
+                    handleRequestAssetsFilter={handleRequestAssetsFilter}
+                />}
+
+                <button onClick={() => requestAssetRefetch()} className="text-[#5e5e5e] text-2xl"><IoMdRefresh></IoMdRefresh></button>
             </div>
 
             {myCompanyAssets?.length ?
