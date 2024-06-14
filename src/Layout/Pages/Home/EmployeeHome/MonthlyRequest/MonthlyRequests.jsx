@@ -2,21 +2,22 @@ import { useQuery } from "@tanstack/react-query";
 import Items from "../PendingRequest/Items";
 import useAxiosSecure from "../../../../../hooks/useAxiosSecure";
 import useAuthInfo from "../../../../../hooks/useAuthInfo";
+import { useEffect, useState } from "react";
 
 
 const MonthlyRequests = () => {
 
-    const { employeeInfo } = useAuthInfo()
+    const { employeeInfo, user } = useAuthInfo()
     const axiosSecure = useAxiosSecure()
+    const [monthlyRequests, setMonthlyRequests] = useState([])
 
-    const { data: monthlyRequests = [] } = useQuery({
-        queryKey: ['monthlyRequests'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/monthly-requests/${employeeInfo.email}`)
-            return res.data
-        },
-        enabled: employeeInfo ? true : false
-    })
+    useEffect(() => {
+        axiosSecure.get(`/monthly-requests/${employeeInfo?.email}`)
+            .then(res => {
+                console.log(res.data)
+                setMonthlyRequests(res.data)
+            })
+    }, [employeeInfo, axiosSecure, user])
 
 
     return (

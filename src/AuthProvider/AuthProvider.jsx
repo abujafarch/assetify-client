@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/firebase.config";
 import useAxiosSecure from "../hooks/useAxiosSecure";
@@ -50,11 +50,17 @@ const AuthProvider = ({ children }) => {
     })
 
     const pendingState = (rolePending || hrCompanyPending || userInfoPending)
-    // console.log(employeeInfo)
 
     const createUser = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    //goggle login here
+    const googleProvider = new GoogleAuthProvider()
+    const googleLogin = () => {
+        setLoading(true)
+        return signInWithPopup(auth, googleProvider)
     }
 
     const login = (email, password) => {
@@ -91,7 +97,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [auth, axiosSecure, user, hr, employee])
 
-    const authInfo = { createUser, profileUpdate, loading, user, logOut, login, employee, hr, setEmployee, setHr, hrCompany, pendingState, hrCompanyRefetch, userInfoRefetch, employeeInfo }
+    const authInfo = { createUser, profileUpdate, loading, user, logOut, login, employee, hr, setEmployee, setHr, hrCompany, pendingState, hrCompanyRefetch, userInfoRefetch, employeeInfo, googleLogin, setLoading }
 
 
     return (

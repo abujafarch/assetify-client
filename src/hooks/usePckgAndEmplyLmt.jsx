@@ -7,37 +7,41 @@ const usePckgAndEmplyLmt = () => {
     const { hrCompany } = useAuthInfo()
     const axiosSecure = useAxiosSecure()
 
-    const [packageLimit, setPackageLimit] = useState(0)
+    const [packageLimit, setPackageLimit] = useState('packageValue')
     const [packagePlan, setPackagePlan] = useState('')
     const usingPackage = hrCompany?.package
 
     useEffect(() => {
-        if(usingPackage === 5){
+        if (usingPackage === 5) {
             setPackageLimit(5)
             setPackagePlan('Basic')
         }
 
-        if(usingPackage === 8){
+        else if (usingPackage === 8) {
             setPackageLimit(10)
             setPackagePlan('Standard')
         }
 
-        if(usingPackage === 15){
+        else if (usingPackage === 15) {
             setPackageLimit(20)
             setPackagePlan('Advance')
         }
+
+        else {
+            setPackageLimit(0)
+        }
     }, [usingPackage, hrCompany])
 
-    const { data: addedEmployees, refetch: addedEmployeeRefetch } = useQuery({
+    const { data: addedEmployees, isPending: employeeCountPending, refetch: addedEmployeeRefetch } = useQuery({
         queryKey: ['employees'],
         enabled: hrCompany ? true : false,
         queryFn: async () => {
-            const res = await axiosSecure.get(`/my-employees/${hrCompany._id}`)
+            const res = await axiosSecure.get(`/my-employees/${hrCompany?._id}`)
             return res.data
         }
     })
 
-    return [packageLimit, addedEmployees, packagePlan, addedEmployeeRefetch]
+    return [packageLimit, addedEmployees, packagePlan, addedEmployeeRefetch, employeeCountPending]
 };
 
 export default usePckgAndEmplyLmt;

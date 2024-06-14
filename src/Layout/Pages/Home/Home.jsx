@@ -12,10 +12,14 @@ import PieCharts from "./HrHome/PieChart/PieCharts";
 import OurPackages from "./OurPackages/OurPackages";
 import Slider from "./Slider/Slider";
 import useAuthInfo from "../../../hooks/useAuthInfo";
+import usePckgAndEmplyLmt from "../../../hooks/usePckgAndEmplyLmt";
+import { Navigate } from "react-router-dom";
 
 const Home = () => {
 
-    const { employee, hr, user, loading, employeeInfo } = useAuthInfo()
+    const { employee, hr, user, employeeInfo } = useAuthInfo()
+    const [packageLimit] = usePckgAndEmplyLmt()
+    console.log(packageLimit);
 
     if (!employee && !hr && !user) {
         return (
@@ -42,7 +46,7 @@ const Home = () => {
                         <MonthlyRequests></MonthlyRequests>
                         <Event></Event>
                     </div>
-                </div> : 
+                </div> :
                 <div>
                     <p className="text-center uppercase font-raleway text-[#8f8f8f]">You are not connected with any company. Please contact with you HR manger</p>
                 </div>
@@ -51,16 +55,22 @@ const Home = () => {
     else if (hr && user) {
         return (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <Helmet>
+                <Helmet >
                     <title>Home | Company</title>
-                </Helmet>
-                <EmployeesRequests></EmployeesRequests>
-                <MostRequested></MostRequested>
-                <LimitedStock></LimitedStock>
-                <PieCharts></PieCharts>
-                <MaxAssetsUsers></MaxAssetsUsers>
-                <NextEvent></NextEvent>
-            </div>
+                </Helmet >
+
+                {packageLimit ?
+                    <>
+                        <EmployeesRequests></EmployeesRequests>
+                        <MostRequested></MostRequested>
+                        <LimitedStock></LimitedStock>
+                        <PieCharts></PieCharts>
+                        <MaxAssetsUsers></MaxAssetsUsers>
+                        <NextEvent></NextEvent>
+                    </> :
+                    <Navigate to='/packages'></Navigate>
+                }
+            </div >
         )
     }
 };

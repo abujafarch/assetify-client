@@ -2,10 +2,12 @@ import { Helmet } from "react-helmet-async";
 import LoginInput from "./LoginInput";
 import useAuthInfo from "../../../hooks/useAuthInfo";
 import { useNavigate } from "react-router-dom";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
+import toast from "react-hot-toast";
 
 
 const Login = () => {
-    const { login } = useAuthInfo()
+    const { login, setLoading } = useAuthInfo()
     const navigate = useNavigate()
     const handleLogin = (e) => {
         e.preventDefault()
@@ -19,7 +21,8 @@ const Login = () => {
             })
             .catch(err => {
                 console.log(err)
-                alert("something is wrong, try again")
+                toast.error("something is wrong, try again")
+                setLoading(false)
             })
     }
 
@@ -35,8 +38,7 @@ const Login = () => {
                     <LoginInput name="password" title={"Password"} type={"password"} placeholder={"type your password"} />
                     <LoginInput type={"submit"} InputClasses={"cursor-pointer"} value={"Login"} />
                 </form>
-                <p className="font-raleway uppercase text-center py-">or</p>
-                <button className="w-full border border-[#e2e2e2] py-2 px-3 uppercase font-raleway">Google login</button>
+                <SocialLogin></SocialLogin>
             </div>
 
         </div>

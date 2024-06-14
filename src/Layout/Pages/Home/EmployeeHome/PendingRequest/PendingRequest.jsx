@@ -2,21 +2,31 @@ import { useQuery } from "@tanstack/react-query";
 import useAuthInfo from "../../../../../hooks/useAuthInfo";
 import useAxiosSecure from "../../../../../hooks/useAxiosSecure";
 import Items from "./Items";
+import { useEffect, useState } from "react";
 
 
 const PendingRequest = () => {
 
     const axiosSecure = useAxiosSecure()
-    const { employeeInfo } = useAuthInfo()
+    const { employeeInfo, user } = useAuthInfo()
+    const [pendingRequests, setPendingRequests] = useState([])
 
-    const { data: pendingRequests = [] } = useQuery({
-        queryKey: ['pendingRequests'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/pending-requests/${employeeInfo.email}`)
-            return res.data
-        },
-        enabled: employeeInfo ? true : false
-    })
+    useEffect(() => {
+        axiosSecure.get(`/pending-requests/${employeeInfo.email}`)
+            .then(res => {
+                console.log(res.data)
+                setPendingRequests(res.data)
+            })
+    }, [employeeInfo, axiosSecure, user])
+
+    // const { data: pendingRequests = [] } = useQuery({
+    //     queryKey: ['pendingRequests'],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get(`/pending-requests/${employeeInfo.email}`)
+    //         return res.data
+    //     },
+    //     enabled: employeeInfo ? true : false
+    // })
 
     return (
         <div className="border h-max border-[#ffffff10] p-5 pb-8 rounded-md bg-[#ffffff03] text-white">

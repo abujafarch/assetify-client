@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import useAxiosSecure from '../../../../../hooks/useAxiosSecure';
 import useAuthInfo from '../../../../../hooks/useAuthInfo';
@@ -26,16 +26,17 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 const PieCharts = () => {
 
     const axiosSecure = useAxiosSecure()
-    const { hrCompany } = useAuthInfo()
+    const { hrCompany, user } = useAuthInfo()
 
-    const { data: returnability = [] } = useQuery({
-        queryKey: ['returnability'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/employee-returnability/${hrCompany._id}`)
-            // console.log(res.data)
-            return res.data
-        }
-    })
+    const [returnability, setReturnability] = useState([])
+
+    useEffect(() => {
+        axiosSecure.get(`/employee-returnability/${hrCompany?._id}`)
+            .then(res => {
+                // console.log(res.data)
+                setReturnability(res.data)
+            })
+    }, [hrCompany, axiosSecure, user])
 
     const data = [
         { name: returnability[0]?._id, value: returnability[0]?.quantity },

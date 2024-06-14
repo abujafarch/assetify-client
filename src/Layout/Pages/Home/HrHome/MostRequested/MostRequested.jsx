@@ -1,23 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../../hooks/useAxiosSecure";
-import RequestItem from "../EmployeesRequests/RequestItem";
+// import RequestItem from "../EmployeesRequests/RequestItem";
 import useAuthInfo from "../../../../../hooks/useAuthInfo";
 import MostRequestedItem from "./MostRequestedItem";
+import { useEffect, useState } from "react";
 
 
 const MostRequested = () => {
 
     const axiosSecure = useAxiosSecure()
-    const { hrCompany } = useAuthInfo()
+    const { hrCompany, user } = useAuthInfo()
+    const [mostRequests, setMostRequests] = useState([])
 
-    const { data: mostRequests = [] } = useQuery({
-        queryKey: ['most-requests'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/most-requested/${hrCompany._id}`)
-            // console.log(res.data);
-            return res.data
-        }
-    })
+    useEffect(() => {
+        axiosSecure.get(`/most-requested/${hrCompany?._id}`)
+            .then(res => {
+                // console.log(res.data)
+                setMostRequests(res.data)
+            })
+    }, [hrCompany, axiosSecure, user])
 
     return (
         <div>

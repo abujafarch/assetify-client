@@ -24,7 +24,7 @@ const RequestAsset = () => {
             const res = await axiosSecure.get(`myCompany-assets/${employeeInfo.companyId}`)
             return res.data
         },
-        enabled: employeeInfo ? true : false
+        enabled: employeeInfo.hired ? true : false
     })
 
     const [requestedItem, setRequestedItem] = useState()

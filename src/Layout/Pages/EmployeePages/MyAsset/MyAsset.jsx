@@ -22,7 +22,7 @@ const MyAsset = () => {
             setMyAssets(res.data)
             return "myAssets"
         },
-        enabled: employeeInfo ? true : false
+        enabled: employeeInfo.hired ? true : false
     })
 
     // console.log(myAssets);

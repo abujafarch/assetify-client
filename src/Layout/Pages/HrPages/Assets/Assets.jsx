@@ -9,20 +9,44 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import AssetFilter from "./AssetFilter";
+import { IoMdRefresh } from "react-icons/io";
 
 
 const Assets = () => {
     const [filterModalOpen, setFilterModalOpen] = useState(false)
     const { hrCompany } = useAuthInfo()
+    const [assets, setAssets] = useState([])
 
     const axiosSecure = useAxiosSecure()
-    const { data: assets = [], refetch } = useQuery({
+    const { refetch } = useQuery({
         queryKey: ['assets'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/assets/${hrCompany._id}`)
-            return res.data
+            setAssets(res.data)
+            return 'assets'
         }
     })
+
+    const handleFilter = async (availability, returnability) => {
+
+        if (availability === 'select' && returnability === 'select') {
+            return toast.error('Please select at least one field to filter asset')
+        }
+
+        const res = await axiosSecure.get(`/filter-assets?companyId=${hrCompany._id}&availability=${availability}&returnability=${returnability}`)
+
+        setAssets(res.data)
+        setFilterModalOpen(false)
+    }
+
+    const handleSorting = async (e) => {
+        const sortValue = e.target.value
+
+        const res = await axiosSecure.get(`/sort-by-quantity?companyId=${hrCompany?._id}&sortValue=${sortValue}`)
+        
+        setAssets(res.data)
+    }
 
     const handleDeleteAsset = (id) => {
         axiosSecure.delete(`/asset/${id}`)
@@ -60,7 +84,7 @@ const Assets = () => {
                     <p>Filter</p>
                 </button>
 
-                {filterModalOpen && <Filter
+                {filterModalOpen && <AssetFilter
                     setFilterModalOpen={setFilterModalOpen}
                     selectTitle1={"Availability"}
                     selectTitle2={"Returnability"}
@@ -68,14 +92,16 @@ const Assets = () => {
                     option2={"out of stock"}
                     option3={"returnable"}
                     option4={"non-returnable"}
-                >
-                </Filter>}
+                    handleFilter={handleFilter}
+                />}
+                {/* refetch default data */}
+                <button onClick={() => refetch()} className="text-[#5e5e5e] text-2xl"><IoMdRefresh></IoMdRefresh></button>
             </div>
 
             <div className="mt-5">
                 <p className="font-raleway text-[#a8a7a7] uppercase text-sm mb-2">sort by quantity</p>
-                <select className="bg-[#0f172a] uppercase py-[9px] px-2 cursor-pointer border rounded-sm p-1 border-[#192747] text-[#a8a7a7] text-sm xs:text-base outline-none font-raleway">
-                    <option className="text-sm" value="default">default</option>
+                <select onChange={handleSorting} name="quantity-sort" defaultValue='default' className="bg-[#0f172a] uppercase py-[9px] px-2 cursor-pointer border rounded-sm p-1 border-[#192747] text-[#a8a7a7] text-sm xs:text-base outline-none font-raleway">
+                    <option disabled className="text-sm" value="default">default</option>
                     <option className="text-sm" value="high to low">high to low</option>
                     <option className="text-sm" value="low to high">low to high</option>
                 </select>

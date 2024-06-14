@@ -17,6 +17,8 @@ import Login from "../Layout/Pages/Login/Login";
 import Payments from "../Layout/Pages/HrPages/Payments/Payments";
 import EmployeRoute from "../PrivateRoutes/EmployeRoute";
 import PrintAsset from "../Layout/Pages/EmployeePages/MyAsset/PrintAsset";
+import HrRoutes from "../PrivateRoutes/HrRoutes";
+import PackageRouter from "../PrivateRoutes/PackageRouter";
 
 export const router = createBrowserRouter([
     {
@@ -62,36 +64,36 @@ export const router = createBrowserRouter([
             },
             //HR manager pages
             {
-                path: 'assets',
-                element: <Assets></Assets>
+                path: '/assets',
+                element: <HrRoutes><Assets></Assets></HrRoutes>
             },
             {
-                path: 'add-asset',
-                element: <AddAsset></AddAsset>
+                path: '/add-asset',
+                element: <HrRoutes><AddAsset></AddAsset></HrRoutes>
             },
             {
                 path: '/all-requests',
-                element: <AllRequests></AllRequests>
+                element: <HrRoutes><AllRequests></AllRequests></HrRoutes>
             },
             {
-                path: 'employee-lists',
-                element: <MyEmployees></MyEmployees>
+                path: '/employee-lists',
+                element: <HrRoutes><MyEmployees></MyEmployees></HrRoutes>
             },
             {
                 path: '/add-employee',
-                element: <AddEmployee></AddEmployee>
+                element: <HrRoutes><AddEmployee></AddEmployee></HrRoutes>
             },
             {
                 path: '/packages',
-                element: <Packages></Packages>
+                element: <PackageRouter><Packages></Packages></PackageRouter>
             },
             {
                 path: '/hr-profile',
-                element: <SharedProfile></SharedProfile>
+                element: <HrRoutes><SharedProfile></SharedProfile></HrRoutes>
             },
             {
                 path: '/payments',
-                element: <Payments></Payments>
+                element: <PackageRouter><Payments></Payments></PackageRouter>
             }
         ]
     },

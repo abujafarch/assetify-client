@@ -2,22 +2,32 @@ import { useQuery } from "@tanstack/react-query";
 import useAuthInfo from "../../../../../hooks/useAuthInfo";
 import useAxiosSecure from "../../../../../hooks/useAxiosSecure";
 import RequestItem from "./RequestItem";
+import { useEffect, useState } from "react";
 
 
 const EmployeesRequests = () => {
 
-    const { hrCompany } = useAuthInfo()
+    const { hrCompany, user } = useAuthInfo()
     const axiosSecure = useAxiosSecure()
+    const [usersRequests, setUserRequests] = useState([])
 
-    const { data: usersRequests = [] } = useQuery({
-        queryKey: ['usersRequests'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/users-requests/${hrCompany._id}`)
-            // console.log(res.data)
-            return res.data
-        },
-        enabled: hrCompany ? true : false
-    })
+    useEffect(() => {
+        axiosSecure.get(`/users-requests/${hrCompany?._id}`)
+            .then(res => {
+                // console.log(res.data)
+                setUserRequests(res.data)
+            })
+    }, [hrCompany, axiosSecure, user])
+
+    // const { data: usersRequests = [] } = useQuery({
+    //     queryKey: ['usersRequests'],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get(`/users-requests/${hrCompany._id}`)
+    //         // console.log(res.data)
+    //         return res.data
+    //     },
+    //     enabled: hrCompany ? true : false
+    // })
 
     return (
         <div className="border h-max border-[#ffffff10] p-5 pb-8 rounded-md bg-[#ffffff03] text-white">

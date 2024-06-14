@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 const PrintAsset = () => {
     const { state: assetItem } = useLocation()
     const { employeeInfo } = useAuthInfo()
-    console.log(assetItem)
+    // console.log(assetItem)
 
     return (
         <PDFViewer width='100%' height='800'>

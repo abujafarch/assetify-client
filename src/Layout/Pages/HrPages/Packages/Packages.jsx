@@ -9,6 +9,7 @@ const Packages = () => {
                 <title>Packages</title>
             </Helmet>
             <h1 className="font-raleway mt-3 xs:text-xl text-[#a8a7a7] font-light uppercase mb-5 text-center">All packages</h1>
+            <p className="font-raleway mt-3 text-sm text-[#a8a7a7] font-light uppercase mb-5 text-center">You have to pay first to expand employee limit or access to your account</p>
             <div className="flex items-center justify-center">
                 <div className="grid xs:grid-cols-2 md:grid-cols-3 gap-5">
                     <PackageItem employee={5} cost={5}></PackageItem>

@@ -2,22 +2,23 @@ import { useQuery } from "@tanstack/react-query";
 import useAuthInfo from "../../../../../hooks/useAuthInfo";
 import useAxiosSecure from "../../../../../hooks/useAxiosSecure";
 import MaxAssetUser from "./MaxAssetUser";
+import { useEffect, useState } from "react";
 
 
 const MaxAssetsUsers = () => {
 
     const axiosSecure = useAxiosSecure()
-    const { hrCompany } = useAuthInfo()
+    const { hrCompany, user } = useAuthInfo()
 
-    const { data: maxAssetsUsers = [] } = useQuery({
-        queryKey: ['maxAssetUsers'],
-        queryFn: async () => {
-            const res = await axiosSecure.get(`/max-asset-users/${hrCompany._id}`)
-            // console.log(res.data)
-            return res.data
-        },
-        enabled: hrCompany ? true : false
-    })
+    const [maxAssetsUsers, setMaxAssetsUsers] = useState([])
+
+    useEffect(() => {
+        axiosSecure.get(`/max-asset-users/${hrCompany?._id}`)
+            .then(res => {
+                // console.log(res.data)
+                setMaxAssetsUsers(res.data)
+            })
+    }, [hrCompany, axiosSecure, user])
 
     return (
         <div>

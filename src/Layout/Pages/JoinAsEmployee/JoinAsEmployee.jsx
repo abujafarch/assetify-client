@@ -3,6 +3,7 @@ import InputFeild from "./InputFeild";
 import useAuthInfo from "../../../hooks/useAuthInfo";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 //image uploader api link and api key here
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
@@ -99,8 +100,7 @@ const JoinAsEmployee = () => {
                     <InputFeild type={"submit"} value={"Sign up"} InputClasses={"cursor-pointer uppercase"}></InputFeild>
 
                 </form>
-                <p className="font-raleway uppercase text-center py-">or</p>
-                <button className="w-full border border-[#e2e2e2] py-2 px-3 uppercase font-raleway">Google login</button>
+                <SocialLogin></SocialLogin>
             </div>
 
         </div>

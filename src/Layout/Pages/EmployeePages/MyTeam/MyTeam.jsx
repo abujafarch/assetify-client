@@ -13,10 +13,10 @@ const MyTeam = () => {
     const { data: myTeamMembers = [] } = useQuery({
         queryKey: ['myTeam'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/my-team/${employeeInfo.companyId}`)
+            const res = await axiosSecure.get(`/my-team/${employeeInfo?.companyId}`)
             return res.data
         },
-        enabled: employeeInfo ? true : false
+        enabled: employeeInfo.hired ? true : false
     })
     // console.log(myTeamMembers)
 

@@ -13,7 +13,7 @@ const AddEmployee = () => {
 
     const { hrCompany } = useAuthInfo()
     const [employees, setEmployees] = useState([])
-    console.log(employees);
+    // console.log(employees);
     const axiosSecure = useAxiosSecure()
 
     const [packageLimit, addedEmployees, packagePlan, addedEmployeeRefetch] = usePckgAndEmplyLmt()
@@ -39,7 +39,7 @@ const AddEmployee = () => {
 
         axiosSecure.put(`/add-employees`, { employees, companyId: hrCompany._id })
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.modifiedCount > 0) {
                     refetch()
                     addedEmployeeRefetch()
