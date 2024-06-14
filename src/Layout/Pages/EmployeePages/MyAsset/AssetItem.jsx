@@ -1,5 +1,6 @@
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const AssetItem = ({ myAsset, myAssetRefetch }) => {
@@ -12,8 +13,19 @@ const AssetItem = ({ myAsset, myAssetRefetch }) => {
             toast.success('request canceled')
             myAssetRefetch()
         }
-        else{
+        else {
             toast.error('something is wrong please try again')
+        }
+    }
+
+    const handleReturnAsset = async () => {
+        console.log("i am hitting on return");
+        const res = await axiosSecure.put(`/return-asset?requestId=${myAsset?._id}&assetId=${myAsset?.assetId}`)
+
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+            toast.success('asset returned')
+            myAssetRefetch()
         }
     }
 
@@ -27,15 +39,24 @@ const AssetItem = ({ myAsset, myAssetRefetch }) => {
             </div>
             <div className="text-sm w-full space-y-1 font-extralight font-open-sans">
                 <p>requested date: {myAsset?.requestedDate}</p>
-                <p>approval date: {myAsset?.approvalDate}</p>
+                <p>approval date: {myAsset?.approveDate}</p>
             </div>
 
             <div className="space-x-4 w-full flex md:justify-end items-center">
                 {myAsset?.status === 'pending' ?
                     <button onClick={handleCancelingRequest} className="px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f]">Cancel</button> :
                     <>
-                        <button className="px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f]">Print</button>
-                        <button className="px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f]">Return</button>
+                        <Link to='/print-assetDetails' state={myAsset}>
+                            <button className="px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f]">Print</button>
+                        </Link>
+
+                        {myAsset?.returnability === 'returnable' &&
+                            <button
+                                onClick={handleReturnAsset}
+                                className={`px-5 text-sm py-[6px] rounded-sm border border-[#ffffff1f] ${myAsset?.status === 'returned' && 'cursor-not-allowed'}`}
+                            >
+                                {myAsset?.status === 'returned' ? 'returned' : 'Return'}
+                            </button>}
                     </>
                 }
             </div>
