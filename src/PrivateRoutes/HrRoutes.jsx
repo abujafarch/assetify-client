@@ -5,9 +5,17 @@ import usePckgAndEmplyLmt from "../hooks/usePckgAndEmplyLmt";
 
 const HrRoutes = ({ children }) => {
 
-    const [packageLimit, addedEmployees, packagePlan, addedEmployeeRefetch, employeeCountPending] = usePckgAndEmplyLmt()
+    const [packageLimit] = usePckgAndEmplyLmt()
 
-    const { hr, user, hrCompany, pendingState } = useAuthInfo()
+    const { hr, user, hrCompany, loading } = useAuthInfo()
+
+    if (loading) {
+        return (
+            <div className='flex items-center justify-center min-h-screen'>
+                <p><span className="loading loading-ring loading-lg"></span></p>
+            </div>
+        )
+    }
 
     if (!user) {
         return <Navigate to='/login' ></Navigate>
@@ -22,7 +30,7 @@ const HrRoutes = ({ children }) => {
     }
 
     if (!packageLimit) {
-       return <Navigate to='/packages'></Navigate>
+        return <Navigate to='/packages'></Navigate>
     }
 
     return (

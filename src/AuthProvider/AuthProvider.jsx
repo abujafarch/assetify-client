@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/firebase.config";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext()
 
@@ -14,6 +15,8 @@ const AuthProvider = ({ children }) => {
     const [hrCompany, setHrCompany] = useState()
 
     const axiosSecure = useAxiosSecure()
+    const axiosPublic = useAxiosPublic()
+
     const [employee, setEmployee] = useState(false)
     const [hr, setHr] = useState(false)
     const [employeeInfo, setEmployeeInfo] = useState()
@@ -84,9 +87,23 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log('current user: ', currentUser);
             setUser(currentUser)
-            setLoading(false)
+
+            if (currentUser) {
+                const userInfo = { email: currentUser.email }
+                axiosPublic.post('/jwt', userInfo)
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('access-token', res.data.token)
+                            setLoading(false)
+                        }
+                        else {
+                            setLoading(false)
+                        }
+                    })
+            }
 
             if (!currentUser) {
+                localStorage.removeItem('access-token')
                 setLoading(false)
                 setHr(false)
                 setEmployee(false)
@@ -95,7 +112,7 @@ const AuthProvider = ({ children }) => {
         return () => {
             unSubscribe()
         }
-    }, [auth, axiosSecure, user, hr, employee])
+    }, [auth, axiosSecure, user, hr, employee, axiosPublic])
 
     const authInfo = { createUser, profileUpdate, loading, user, logOut, login, employee, hr, setEmployee, setHr, hrCompany, pendingState, hrCompanyRefetch, userInfoRefetch, employeeInfo, googleLogin, setLoading }
 
