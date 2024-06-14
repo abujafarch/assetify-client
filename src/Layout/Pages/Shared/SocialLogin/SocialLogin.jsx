@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 
 const SocialLogin = () => {
@@ -25,10 +26,12 @@ const SocialLogin = () => {
                         if (res.data.userAlreadyExist) {
                             // setEmployee(true)
                             navigate('/')
+                            toast.success('logged in successfully')
                         }
                         if (res.data.insertedId) {
                             setEmployee(true)
                             navigate('/')
+                            toast.success('logged in successfully')
                         }
                     })
 

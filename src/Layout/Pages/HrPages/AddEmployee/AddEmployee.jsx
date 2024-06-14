@@ -44,6 +44,7 @@ const AddEmployee = () => {
                     refetch()
                     addedEmployeeRefetch()
                     setEmployees([])
+                    toast.success('selected employees added')
                 }
             })
     }

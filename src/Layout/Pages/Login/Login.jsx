@@ -16,7 +16,8 @@ const Login = () => {
         const password = form.password.value
         login(email, password)
             .then(() => {
-                console.log("logged in success")
+                // console.log("logged in success")
+                toast.success('logged in successfully')
                 navigate('/')
             })
             .catch(err => {

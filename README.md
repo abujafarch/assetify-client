@@ -2,7 +2,7 @@
 
 #### Admin email: jack.sparrow@example.com
 #### Password: 123456
-#### Live URL: 
+#### Live URL: https://assetify-a3e7d.web.app
 
 
 ### Key Features

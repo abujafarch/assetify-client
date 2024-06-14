@@ -4,6 +4,7 @@ import HrPackageSelect from "./HrPackageSelect";
 import useAuthInfo from "../../../hooks/useAuthInfo";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { Navigate, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
@@ -45,8 +46,7 @@ const JoinAsHr = () => {
             console.log(image)
             createUser(email, password)
                 .then(() => {
-                    console.log('user created')
-
+                    // console.log('user created')
                     //make user to database
                     const user = { name, email, birthDate, image: image, companyName, role: 'hr' }
                     axiosPublic.post('/hr-users', user)
@@ -54,6 +54,7 @@ const JoinAsHr = () => {
                             console.log(res.data)
                             setHr(true)
                             navigate('/payments', { state: { purchasingPackage } })
+                            toast.success('registration successful')
                         })
 
                     //updating profile here
@@ -65,7 +66,7 @@ const JoinAsHr = () => {
 
                 })
                 .catch(err => {
-                    alert('maybe this email already exist or internet error. please try again')
+                    toast.error('maybe this email already exist or internet error. please try again')
                     console.log(err)
                 })
         }

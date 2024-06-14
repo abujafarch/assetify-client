@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuthInfo from "../../../../hooks/useAuthInfo";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 const CheckoutForm = ({ purchasingPackage }) => {
@@ -72,6 +73,10 @@ const CheckoutForm = ({ purchasingPackage }) => {
                     if (res.data.modifiedCount > 0){
                         hrCompanyRefetch()
                         navigate('/add-employee')
+                        toast.success('payment done')
+                    }
+                    else if(res.data.modifiedCount === 0){
+                        toast.error('maybe you already using this package. please purchase another package')
                     }
                 })
 

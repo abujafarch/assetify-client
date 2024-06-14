@@ -42,6 +42,7 @@ const NotAffiliatedEmployee = ({ notHiredEmployee, setEmployees, employees, refe
                 if (res.data.modifiedCount > 0) {
                     refetch()
                     addedEmployeeRefetch()
+                    toast.success('employee added to you team')
                 }
             })
     }

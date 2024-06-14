@@ -4,6 +4,7 @@ import useAuthInfo from "../../../hooks/useAuthInfo";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
+import toast from "react-hot-toast";
 
 //image uploader api link and api key here
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
@@ -54,6 +55,7 @@ const JoinAsEmployee = () => {
                             if (res.data.insertedId) {
                                 setEmployee(true)
                                 navigate('/')
+                                toast.success('registration successful')
                             }
                         })
 
@@ -67,7 +69,7 @@ const JoinAsEmployee = () => {
 
                 })
                 .catch(err => {
-                    alert('maybe this email already exist or internet error. please try again')
+                    toast.error('maybe this email already exist or internet error. please try again')
                     console.log(err)
                 })
 
