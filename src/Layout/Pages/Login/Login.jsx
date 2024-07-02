@@ -28,7 +28,7 @@ const Login = () => {
     }
 
     return (
-        <div className="px-3 sm:px-6 md:px-8 sm:pt-14 lg:py-52 md:py-20 lg:px-10">
+        <div className="px-3 sm:px-6 md:px-8 sm:pt-14 lg:py-52 py-32 lg:px-10">
             <Helmet>
                 <title>Login</title>
             </Helmet>

@@ -59,7 +59,7 @@ const Navbar = () => {
                         <div className="dropdown">
                             <div tabIndex={0} role="button" className=" lg:hidden mr-5">
                                 {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg> */}
-                                <p className='text-2xl text-white w-max'><RiMenuLine></RiMenuLine></p>
+                                <p className='text-2xl text-[#616161] w-max'><RiMenuLine></RiMenuLine></p>
                             </div>
                             <div tabIndex={0} className='list-none space-y-2 dropdown-content mt-3 z-[1] bg-base-100 w-52 custom-shadow rounded-md p-5'>
                                 {navLinks}

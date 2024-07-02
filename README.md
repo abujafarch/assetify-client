@@ -1,19 +1,27 @@
 # Assetify
 
-#### Admin email: jack.sparrow@example.com
-#### Password: 123456
+## Overview
+This project is a digital solution to manage all assets of an office. By managing all the assets digitally, the HR manager can easily keep track of all the assets.This saves a lot of time and reduces the chances of losing assets.
+
 #### Live URL: https://assetify-a3e7d.web.app
+
+## The technology used
+- HTML
+- CSS 
+- Javascript
+- React
+- Firebase
+- Express JS
+- MongoDB
 
 
 ### Key Features
-- A company will can handle their asset easily without hassle
-- HR Manger can register as HR role and manage asset from here
-- HR manager can add and delete asset 
-- HR also can add and remove employee from his employee lists
-- HR can approve and reject assets request of employees
-- Employee can register here as employee role
-- employee can see his team from my team route
-- Employee can request asset from available asset to his hr
-- employee can cancel his request before hr approve or reject his request
-- employee can print his request details after hr approve his request 
-- employee also can return asset if it is returnable
+- A comprehensive dashboard where hr manager can view all asset requests: Pending Requests, Most Requested Assets. You can also see limited assets, most asset users and upcoming events
+- HR can reject or approve the request from its dashboard. Assets can be added or deleted. New employee can add, remove from his team
+- On the other hand, employees can easily submit asset requests to their HR. They can easily view all their requests. The employee can also see which is pending and which has been approved
+
+### If you want to run the project locally
+- Clone client side and server side repo
+- Set your own github url if you want
+- Set your firebase authentication details in client side repo and also set the MongoDB details in server side repo 
+- Finally you can modify as your wish. 
