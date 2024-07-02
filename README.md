@@ -1,4 +1,4 @@
-# Assetify
+# Assetify - manage your assets
 
 ## Overview
 This project is a digital solution to manage all assets of an office. By managing all the assets digitally, the HR manager can easily keep track of all the assets.This saves a lot of time and reduces the chances of losing assets.
