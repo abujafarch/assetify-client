@@ -16,12 +16,12 @@ This project is a digital solution to manage all assets of an office. By managin
 
 
 ### Key Features
-- A comprehensive dashboard where hr manager can view all asset requests: Pending Requests, Most Requested Assets. You can also see limited assets, most asset users and upcoming events
-- HR can reject or approve the request from its dashboard. Assets can be added or deleted. New employee can add, remove from his team
-- On the other hand, employees can easily submit asset requests to their HR. They can easily view all their requests. The employee can also see which is pending and which has been approved
+- Keep a live, up-to-date record of all office assets. This system for HR has the facility to track all asset pending requests of employees and instantly accept or reject any request, which employee is using the most assets, how many assets are stock limited, etc.
+- An employee can submit an asset request through this system and print all the details of the approved asset in PDF file format. If the office assets need to be returned, the employee can confirm the return through this system.
+- Join as HR and join as Employee are separate registration systems to connect HR and employees. Then HR can add the employees of his team selectively from his employee add section
 
 ### If you want to run the project locally
 - Clone client side and server side repo
-- Set your own github url if you want
-- Set your firebase authentication details in client side repo and also set the MongoDB details in server side repo 
-- Finally you can modify as your wish. 
+- Set your own GitHub url if you want
+- Set your Firebase authentication details in client side repo and also set the MongoDB details in server side repo 
+- Finally, you can modify it as you wish. 
