@@ -7,7 +7,8 @@ This project is a digital solution to manage all assets of an office. Creating c
 
 ## The technology used
 - HTML
-- CSS 
+- CSS
+- Tailwind
 - Javascript
 - React
 - Firebase
