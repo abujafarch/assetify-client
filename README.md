@@ -5,6 +5,8 @@ This project is a digital solution to manage all assets of an office. Creating c
 
 #### Live URL: https://assetify-a3e7d.web.app
 
+#### [Server Side Repository](https://github.com/abujafarch/assetify-server)
+
 ## The technology used
 - HTML
 - CSS
