@@ -3,7 +3,7 @@
 ## Overview
 This project is a digital solution to manage all assets of an office. Creating connections between HR managers and employees to digitally manage employee asset issuance and returns information and through this HR manager can easily keep track of all assets. This saves a lot of time and reduces the chances of losing assets.
 
-#### Live URL: https://assetify-a3e7d.web.app
+#### Live URL: [Assetify](https://assetify-a3e7d.web.app)
 
 #### [Server Side Repository](https://github.com/abujafarch/assetify-server)
 
